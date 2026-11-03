@@ -1,707 +1,410 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ôn Tập Trắc Nghiệm GDQP&AN 11 - 120 Câu Hỏi</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .gradient-bg {
-            background: linear-gradient(135deg, #1e3a8a 0%, #065f46 100%);
-        }
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 8px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 8px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trắc Nghiệm GDQP-AN 11 - Mã Đề 001</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
 </head>
-<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
 
-    <!-- Header Navigation -->
-    <header class="gradient-bg text-white shadow-md sticky top-0 z-50">
-        <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="goHome()">
-                <div class="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center font-bold text-slate-900 shadow-inner text-xl">
-                    <i class="fa-solid font-bold text-white fa-shield-halved"></i>
-                </div>
-                <div>
-                    <h1 class="font-bold text-lg md:text-xl leading-tight">GDQP&AN 11</h1>
-                    <p class="text-xs text-emerald-200">120 Câu Hỏi Trắc Nghiệm Ôn Tập</p>
-                </div>
-            </div>
-            <div class="flex items-center space-x-2">
-                <button onclick="goHome()" class="px-3 py-1.5 text-xs md:text-sm bg-white/10 hover:bg-white/20 rounded-lg transition font-medium flex items-center gap-1.5">
-                    <i class="fa-solid fa-house"></i>
-                    <span class="hidden sm:inline">Trang chủ</span>
-                </button>
-            </div>
+  <!-- Header Header -->
+  <header class="bg-indigo-700 text-white shadow-md sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <div class="bg-white/10 p-2 rounded-lg">
+          <i class="fa-solid fa-graduation-cap text-2xl text-amber-300"></i>
         </div>
-    </header>
+        <div>
+          <h1 class="font-bold text-lg leading-tight">Ôn Thi Trắc Nghiệm GDQP - AN 11</h1>
+          <p class="text-xs text-indigo-200">Trường THPT Nguyễn Khuyến - Mã đề: 001 (40 câu)</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-3">
+        <button onclick="resetQuiz()" class="text-xs sm:text-sm bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-3 py-1.5 rounded-lg border border-indigo-400/40 transition">
+          <i class="fa-solid fa-rotate-right mr-1.5"></i>Làm lại
+        </button>
+      </div>
+    </div>
+  </header>
 
-    <!-- Main Dynamic Content Container -->
-    <main class="flex-1 max-w-5xl w-full mx-auto p-4 md:p-6" id="app">
-        <!-- Screens will be rendered here via JS -->
-    </main>
+  <!-- Main Container -->
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-4 gap-6">
 
-    <!-- Footer -->
-    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
-        <p>© 2026 Ôn Tự Học GDQP&AN 11 - Biên soạn từ bộ 120 câu hỏi chuẩn Bài 1 - Bài 3</p>
-    </footer>
+    <!-- Left / Center: Question Box -->
+    <section class="lg:col-span-3 flex flex-col space-y-4">
+      
+      <!-- Progress Bar & Status -->
+      <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col space-y-2">
+        <div class="flex justify-between items-center text-sm font-semibold text-slate-600">
+          <span id="current-q-index-label">Câu 1 / 40</span>
+          <span id="answered-count-label" class="text-indigo-600">Đã trả lời: 0/40</span>
+        </div>
+        <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+          <div id="progress-bar" class="bg-indigo-600 h-2.5 rounded-full transition-all duration-300" style="width: 2.5%"></div>
+        </div>
+      </div>
 
-    <!-- JavaScript Application Logic -->
-    <script>
-        // Full Question Bank (120 Questions)
-        const rawQuestions = [
-            // BÀI 1
-            { id: 1, lesson: 1, q: "Mục tiêu bảo vệ Tổ quốc Việt Nam xã hội chủ nghĩa trong tình hình mới là gì?", options: ["Phát triển kinh tế là nhiệm vụ duy nhất.", "Bảo vệ vững chắc độc lập, chủ quyền, thống nhất và toàn vẹn lãnh thổ.", "Chỉ bảo vệ an ninh quốc gia.", "Chỉ bảo vệ vùng đất liền."], correct: 1 },
-            { id: 2, lesson: 1, q: "Phương án nào nêu đầy đủ mục tiêu bảo vệ Tổ quốc Việt Nam xã hội chủ nghĩa?", options: ["Chỉ giữ gìn trật tự ở khu dân cư.", "Chỉ phát triển quốc phòng và quân sự.", "Bảo vệ vững chắc độc lập, chủ quyền, thống nhất và toàn vẹn lãnh thổ.", "Chỉ bảo vệ các tuyến giao thông."], correct: 2 },
-            { id: 3, lesson: 1, q: "Hai nhiệm vụ chiến lược cần được kết hợp chặt chẽ trong bảo vệ Tổ quốc là gì?", options: ["Xây dựng và bảo vệ Tổ quốc.", "Phát triển kinh tế và mở rộng giao thông.", "Học tập và vui chơi.", "Phát triển đô thị và công nghiệp."], correct: 0 },
-            { id: 4, lesson: 1, q: "Quan điểm đúng về nhiệm vụ xây dựng và bảo vệ Tổ quốc là phương án nào?", options: ["Chỉ tập trung xây dựng kinh tế.", "Chỉ tập trung phát triển quân sự.", "Chỉ dựa vào sự giúp đỡ từ bên ngoài.", "Kết hợp chặt chẽ hai nhiệm vụ chiến lược: xây dựng và bảo vệ Tổ quốc."], correct: 3 },
-            { id: 5, lesson: 1, q: "Sức mạnh bảo vệ Tổ quốc được xây dựng trên cơ sở nào?", options: ["Chỉ dựa vào sức mạnh quân sự.", "Chỉ dựa vào kinh tế.", "Sức mạnh tổng hợp của nhiều lĩnh vực chính trị, tư tưởng, kinh tế, xã hội, văn hóa, quốc phòng, an ninh và đối ngoại.", "Chỉ dựa vào sự hỗ trợ quốc tế."], correct: 2 },
-            { id: 6, lesson: 1, q: "Yếu tố nào sau đây thuộc sức mạnh tổng hợp bảo vệ Tổ quốc?", options: ["Chính trị, tư tưởng, kinh tế, xã hội, văn hóa, quốc phòng, an ninh và đối ngoại.", "Chỉ hoạt động thể thao và giải trí.", "Chỉ hoạt động giao thông.", "Chỉ hoạt động sản xuất nông nghiệp."], correct: 0 },
-            { id: 7, lesson: 1, q: "Nhận định nào đúng về Việt Nam?", options: ["Việt Nam không có chủ quyền lãnh thổ.", "Việt Nam chỉ có chủ quyền trên đất liền.", "Việt Nam chỉ có chủ quyền trên biển.", "Việt Nam là nước độc lập, có chủ quyền, thống nhất và toàn vẹn lãnh thổ."], correct: 3 },
-            { id: 8, lesson: 1, q: "Lãnh thổ Việt Nam bao gồm những bộ phận nào?", options: ["Đất liền và vùng trời.", "Đất liền, hải đảo, vùng biển và vùng trời.", "Vùng biển và vùng trời.", "Đất liền và hải đảo."], correct: 1 },
-            { id: 9, lesson: 1, q: "Phương án nào liệt kê đầy đủ các bộ phận lãnh thổ Việt Nam theo tài liệu?", options: ["Đất liền, hải đảo, vùng biển, vùng trời.", "Đất liền, sông hồ, đường giao thông.", "Hải đảo, khu dân cư, vùng trời.", "Vùng biển, khu công nghiệp, vùng trời."], correct: 0 },
-            { id: 10, lesson: 1, q: "Nội dung nào sau đây còn thiếu khi liệt kê lãnh thổ Việt Nam gồm đất liền, hải đảo và vùng biển?", options: ["Đường giao thông.", "Khu công nghiệp.", "Vùng trời.", "Khu dân cư."], correct: 2 },
-            { id: 11, lesson: 1, q: "Biên giới quốc gia được hiểu là gì?", options: ["Đường phân chia các tỉnh, thành phố.", "Đường giao thông giữa các quốc gia.", "Đường phân chia các khu dân cư.", "Đường và mặt thẳng đứng theo đường đó để xác định giới hạn lãnh thổ quốc gia."], correct: 3 },
-            { id: 12, lesson: 1, q: "Theo tài liệu, biên giới quốc gia gồm đường biên giới và bộ phận nào gắn với đường đó?", options: ["Mặt phẳng nằm ngang.", "Mặt thẳng đứng theo đường biên giới.", "Các tuyến đường bộ.", "Các khu dân cư lân cận."], correct: 1 },
-            { id: 13, lesson: 1, q: "Biên giới quốc gia trên đất liền được đánh dấu bằng gì?", options: ["Hệ thống mốc quốc giới.", "Biển báo giao thông.", "Hàng rào dân cư.", "Các tuyến đường bộ."], correct: 0 },
-            { id: 14, lesson: 1, q: "Công cụ nào dùng để đánh dấu biên giới quốc gia trên đất liền?", options: ["Hệ thống cột điện.", "Biển báo giao thông.", "Hệ thống mốc quốc giới.", "Các tuyến xe khách."], correct: 2 },
-            { id: 15, lesson: 1, q: "Biên giới quốc gia trên biển được hoạch định và đánh dấu bằng gì?", options: ["Hệ thống đường giao thông.", "Hệ thống cột điện.", "Hệ thống biển báo giao thông.", "Các tọa độ trên hải đồ."], correct: 3 },
-            { id: 16, lesson: 1, q: "Thông tin nào được sử dụng để hoạch định và đánh dấu biên giới quốc gia trên biển?", options: ["Các tuyến đường bộ.", "Các tọa độ trên hải đồ.", "Các mốc phân chia khu dân cư.", "Hệ thống cột điện."], correct: 1 },
-            { id: 17, lesson: 1, q: "Biên giới quốc gia trong lòng đất được xác định như thế nào?", options: ["Bằng đường phân chia các tầng địa chất.", "Bằng mặt phẳng nằm ngang dưới lòng đất.", "Bằng mặt thẳng đứng từ biên giới trên đất liền và trên biển xuống lòng đất.", "Bằng đường phân chia các mỏ khoáng sản."], correct: 2 },
-            { id: 18, lesson: 1, q: "Mặt thẳng đứng xác định biên giới quốc gia trong lòng đất được kéo xuống từ đâu?", options: ["Từ biên giới trên đất liền và trên biển.", "Từ trung tâm các tỉnh.", "Từ các tuyến đường giao thông.", "Từ các khu công nghiệp."], correct: 0 },
-            { id: 19, lesson: 1, q: "Khu vực biên giới trên đất liền gồm những đơn vị hành chính nào?", options: ["Tất cả các tỉnh trong cả nước.", "Các thành phố lớn.", "Các khu công nghiệp.", "Xã, phường có một phần địa giới hành chính trùng hợp với biên giới quốc gia trên đất liền."], correct: 3 },
-            { id: 20, lesson: 1, q: "Đơn vị nào có thể thuộc khu vực biên giới trên đất liền theo tài liệu?", options: ["Mọi thành phố lớn trong cả nước.", "Xã, phường có một phần địa giới hành chính trùng với biên giới quốc gia trên đất liền.", "Tất cả khu công nghiệp.", "Tất cả các tỉnh, không phụ thuộc vị trí."], correct: 1 },
-            { id: 21, lesson: 1, q: "Chiều rộng khu vực biên giới trên đất liền, tính từ biên giới quốc gia vào, là bao nhiêu?", options: ["5 km.", "15 km.", "10 km.", "20 km."], correct: 2 },
-            { id: 22, lesson: 1, q: "Theo tài liệu ôn tập, khu vực biên giới trên đất liền được tính vào trong đất liền bao xa?", options: ["10 km tính từ biên giới quốc gia.", "5 km tính từ biên giới quốc gia.", "15 km tính từ biên giới quốc gia.", "20 km tính từ biên giới quốc gia."], correct: 0 },
-            { id: 23, lesson: 1, q: "Hành vi nào bị nghiêm cấm trong khu vực biên giới?", options: ["Tuyên truyền pháp luật.", "Bảo vệ cột mốc biên giới.", "Tham gia bảo vệ biên giới.", "Phá hoại, làm sai lệch hoặc xê dịch mốc quốc giới."], correct: 3 },
-            { id: 24, lesson: 1, q: "Trong các hành vi sau, hành vi nào không được phép thực hiện ở khu vực biên giới?", options: ["Tham gia bảo vệ biên giới.", "Xê dịch mốc quốc giới.", "Tuyên truyền pháp luật.", "Bảo vệ cột mốc biên giới."], correct: 1 },
-            { id: 25, lesson: 1, q: "Hành động nào thể hiện việc bảo vệ mốc quốc giới?", options: ["Làm sai lệch vị trí mốc.", "Phá hoại mốc.", "Bảo vệ cột mốc biên giới.", "Tự ý xê dịch mốc."], correct: 2 },
-            { id: 26, lesson: 1, q: "Công ước Liên hợp quốc về Luật Biển năm 1982 có hiệu lực từ ngày nào?", options: ["16/11/1994.", "10/12/1982.", "23/6/1994.", "25/3/2012."], correct: 0 },
-            { id: 27, lesson: 1, q: "Ngày Công ước Liên hợp quốc về Luật Biển năm 1982 có hiệu lực là ngày nào?", options: ["10/12/1982.", "23/6/1994.", "25/3/2012.", "16/11/1994."], correct: 3 },
-            { id: 28, lesson: 1, q: "Luật Biển Việt Nam được ban hành vào năm nào?", options: ["1982.", "2003.", "2012.", "2010."], correct: 2 },
-            { id: 29, lesson: 1, q: "Mốc năm nào gắn với việc ban hành Luật Biển Việt Nam?", options: ["2010.", "2012.", "2015.", "2020."], correct: 1 },
-            { id: 30, lesson: 1, q: "Lãnh hải Việt Nam có chiều rộng bao nhiêu hải lí tính từ đường cơ sở?", options: ["10 hải lí.", "18 hải lí.", "200 hải lí.", "12 hải lí."], correct: 3 },
-            { id: 31, lesson: 1, q: "Chiều rộng lãnh hải Việt Nam được xác định theo đơn vị nào trong tài liệu?", options: ["Kilômét.", "Hải lí.", "Mét.", "Dặm đường bộ."], correct: 1 },
-            { id: 32, lesson: 1, q: "Lãnh hải Việt Nam rộng 12 hải lí được tính từ đâu?", options: ["Từ đường cơ sở.", "Từ trung tâm đất liền.", "Từ địa giới hành chính cấp xã.", "Từ hệ thống mốc quốc giới trên đất liền."], correct: 0 },
-            { id: 33, lesson: 1, q: "Phát biểu nào kết hợp đúng nội dung về lãnh thổ và chủ quyền Việt Nam?", options: ["Việt Nam chỉ có chủ quyền trên đất liền.", "Lãnh thổ chỉ gồm đất liền và hải đảo.", "Việt Nam độc lập, có chủ quyền, thống nhất; lãnh thổ gồm đất liền, hải đảo, vùng biển và vùng trời.", "Việt Nam chỉ có chủ quyền trên vùng biển."], correct: 2 },
-            { id: 34, lesson: 1, q: "Khi nói về sức mạnh bảo vệ Tổ quốc, cách hiểu nào phù hợp với tài liệu?", options: ["Chỉ cần sức mạnh quân sự.", "Chỉ cần tiềm lực kinh tế.", "Chỉ cần sự hỗ trợ quốc tế.", "Cần sức mạnh tổng hợp của nhiều lĩnh vực."], correct: 3 },
-            { id: 35, lesson: 1, q: "Nội dung nào không đúng với quan điểm bảo vệ Tổ quốc được nêu trong tài liệu?", options: ["Kết hợp xây dựng và bảo vệ Tổ quốc.", "Chỉ tập trung xây dựng kinh tế, không cần quan tâm nhiệm vụ bảo vệ.", "Phát huy sức mạnh tổng hợp.", "Bảo vệ độc lập, chủ quyền, thống nhất và toàn vẹn lãnh thổ."], correct: 1 },
-            { id: 36, lesson: 1, q: "Nếu cần xác định một mốc biên giới trên đất liền, căn cứ nào được nêu trong tài liệu?", options: ["Hệ thống mốc quốc giới.", "Các tọa độ trên hải đồ.", "Biển báo giao thông.", "Hệ thống cột điện."], correct: 0 },
-            { id: 37, lesson: 1, q: "Nếu cần xác định biên giới quốc gia trên biển theo tài liệu, thông tin nào phù hợp nhất?", options: ["Mốc phân chia các xã.", "Tuyến đường bộ.", "Các tọa độ trên hải đồ.", "Hàng rào dân cư."], correct: 2 },
-            { id: 38, lesson: 1, q: "Nội dung nào mô tả đúng biên giới quốc gia trong lòng đất?", options: ["Đường phân chia các mỏ khoáng sản.", "Mặt phẳng ngang dưới lòng đất.", "Đường phân chia các tầng địa chất.", "Mặt thẳng đứng kéo từ biên giới trên đất liền và trên biển xuống lòng đất."], correct: 3 },
-            { id: 39, lesson: 1, q: "Một xã có một phần địa giới hành chính trùng với biên giới quốc gia trên đất liền được xếp vào đâu?", options: ["Khu công nghiệp.", "Khu vực biên giới trên đất liền.", "Khu vực đô thị trung tâm.", "Khu vực nội địa không liên quan biên giới."], correct: 1 },
-            { id: 40, lesson: 1, q: "Biên giới quốc gia có ý nghĩa trực tiếp trong việc xác định điều gì theo khái niệm trong tài liệu?", options: ["Giới hạn lãnh thổ quốc gia.", "Địa giới giữa các lớp học.", "Ranh giới các khu công nghiệp.", "Tuyến giao thông giữa các tỉnh."], correct: 0 },
+      <!-- Question Card -->
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex-1 flex flex-col justify-between">
+        <div>
+          <!-- Question Title -->
+          <div class="flex items-start space-x-3 mb-5">
+            <span id="question-badge" class="bg-indigo-100 text-indigo-800 text-sm font-bold px-3 py-1 rounded-md shrink-0">
+              Câu 1
+            </span>
+            <h2 id="question-text" class="text-base sm:text-lg font-semibold text-slate-800 leading-relaxed">
+              Loading...
+            </h2>
+          </div>
 
-            // BÀI 2
-            { id: 41, lesson: 2, q: "Luật Nghĩa vụ quân sự được ban hành năm nào?", options: ["2010.", "2018.", "2015.", "2020."], correct: 2 },
-            { id: 42, lesson: 2, q: "Năm ban hành Luật Nghĩa vụ quân sự được nêu trong tài liệu là năm nào?", options: ["2015.", "2010.", "2020.", "2018."], correct: 0 },
-            { id: 43, lesson: 2, q: "Nghĩa vụ quân sự là nghĩa vụ vẻ vang của công dân phục vụ trong lực lượng nào?", options: ["Công an xã.", "Dân quân tự vệ.", "Lực lượng thanh niên xung phong.", "Quân đội nhân dân."], correct: 3 },
-            { id: 44, lesson: 2, q: "Theo tài liệu, công dân thực hiện nghĩa vụ quân sự phục vụ trong lực lượng nào?", options: ["Lực lượng thanh niên xung phong.", "Quân đội nhân dân.", "Công an xã.", "Các tổ chức tình nguyện."], correct: 1 },
-            { id: 45, lesson: 2, q: "Thực hiện nghĩa vụ quân sự bao gồm những hình thức nào?", options: ["Chỉ phục vụ tại ngũ.", "Chỉ phục vụ trong ngạch dự bị.", "Phục vụ tại ngũ và phục vụ trong ngạch dự bị.", "Chỉ tham gia dân quân tự vệ."], correct: 2 },
-            { id: 46, lesson: 2, q: "Hai hình thức thực hiện nghĩa vụ quân sự được nêu trong tài liệu là gì?", options: ["Phục vụ tại ngũ và phục vụ trong ngạch dự bị.", "Học tập và lao động.", "Tham gia dân quân tự vệ và thanh niên xung phong.", "Chỉ tham gia huấn luyện ngắn hạn."], correct: 0 },
-            { id: 47, lesson: 2, q: "Công dân nam thuộc đối tượng đăng kí nghĩa vụ quân sự từ đủ bao nhiêu tuổi?", options: ["15 tuổi.", "18 tuổi.", "20 tuổi.", "17 tuổi."], correct: 3 },
-            { id: 48, lesson: 2, q: "Độ tuổi đăng kí nghĩa vụ quân sự lần đầu của công dân nam được nêu trong tài liệu là bao nhiêu?", options: ["Đủ 15 tuổi.", "Đủ 17 tuổi.", "Đủ 18 tuổi.", "Đủ 20 tuổi."], correct: 1 },
-            { id: 49, lesson: 2, q: "Công dân nữ được đăng kí nghĩa vụ quân sự từ đủ bao nhiêu tuổi trở lên?", options: ["16 tuổi.", "17 tuổi.", "18 tuổi.", "20 tuổi."], correct: 2 },
-            { id: 50, lesson: 2, q: "Theo nội dung ôn tập, mốc tuổi đăng kí nghĩa vụ quân sự của công dân nữ là từ đủ bao nhiêu tuổi?", options: ["Đủ 18 tuổi.", "Đủ 16 tuổi.", "Đủ 17 tuổi.", "Đủ 20 tuổi."], correct: 0 },
-            { id: 51, lesson: 2, q: "Đối tượng nào sau đây được miễn đăng kí nghĩa vụ quân sự theo tài liệu?", options: ["Người có việc làm ổn định.", "Người đang học THPT.", "Người đã kết hôn.", "Người khuyết tật, người mắc bệnh hiểm nghèo theo quy định."], correct: 3 },
-            { id: 52, lesson: 2, q: "Trường hợp nào được nêu là thuộc diện miễn đăng kí nghĩa vụ quân sự?", options: ["Người đã kết hôn.", "Người khuyết tật hoặc mắc bệnh hiểm nghèo theo quy định.", "Người có việc làm ổn định.", "Người đang học THPT."], correct: 1 },
-            { id: 53, lesson: 2, q: "Cơ quan nào thực hiện đăng kí nghĩa vụ quân sự cho công dân cư trú tại địa phương?", options: ["Công an cấp tỉnh.", "Trường học.", "Ban Chỉ huy quân sự cấp xã.", "Bệnh viện."], correct: 2 },
-            { id: 54, lesson: 2, q: "Công dân cư trú tại địa phương đăng kí nghĩa vụ quân sự tại cơ quan nào?", options: ["Ban Chỉ huy quân sự cấp xã.", "Bệnh viện.", "Trường học.", "Công an cấp tỉnh."], correct: 0 },
-            { id: 55, lesson: 2, q: "Độ tuổi gọi nhập ngũ thông thường là khoảng nào?", options: ["Từ đủ 17 đến hết 23 tuổi.", "Từ đủ 20 đến hết 27 tuổi.", "Từ đủ 21 đến hết 30 tuổi.", "Từ đủ 18 đến hết 25 tuổi."], correct: 3 },
-            { id: 56, lesson: 2, q: "Theo tài liệu, độ tuổi gọi nhập ngũ thông thường bắt đầu từ đủ 18 tuổi và kết thúc ở tuổi nào?", options: ["23 tuổi.", "25 tuổi.", "27 tuổi.", "30 tuổi."], correct: 1 },
-            { id: 57, lesson: 2, q: "Người được tạm hoãn gọi nhập ngũ do học cao đẳng, đại học có thể được gọi nhập ngũ đến hết bao nhiêu tuổi?", options: ["25 tuổi.", "26 tuổi.", "27 tuổi.", "30 tuổi."], correct: 2 },
-            { id: 58, lesson: 2, q: "Mốc tuổi tối đa được nêu đối với người được tạm hoãn gọi nhập ngũ vì học cao đẳng, đại học là bao nhiêu?", options: ["Hết 27 tuổi.", "Hết 25 tuổi.", "Hết 26 tuổi.", "Hết 30 tuổi."], correct: 0 },
-            { id: 59, lesson: 2, q: "Thời hạn phục vụ tại ngũ trong thời bình của hạ sĩ quan, binh sĩ là bao lâu?", options: ["12 tháng.", "18 tháng.", "36 tháng.", "24 tháng."], correct: 3 },
-            { id: 60, lesson: 2, q: "Thời hạn phục vụ tại ngũ thông thường trong thời bình theo tài liệu là bao nhiêu tháng?", options: ["18 tháng.", "24 tháng.", "12 tháng.", "36 tháng."], correct: 1 },
-            { id: 61, lesson: 2, q: "Trong trường hợp luật định, Bộ trưởng Bộ Quốc phòng có thể quyết định kéo dài thời hạn phục vụ tại ngũ không quá bao nhiêu tháng?", options: ["3 tháng.", "9 tháng.", "6 tháng.", "12 tháng."], correct: 2 },
-            { id: 62, lesson: 2, q: "Thời gian kéo dài tối đa được nêu đối với thời hạn phục vụ tại ngũ là bao nhiêu?", options: ["6 tháng.", "3 tháng.", "9 tháng.", "12 tháng."], correct: 0 },
-            { id: 63, lesson: 2, q: "Trường hợp nào sau đây được tạm hoãn gọi nhập ngũ?", options: ["Có sức khỏe tốt.", "Không muốn tham gia quân đội.", "Đã đi làm.", "Chưa đủ sức khỏe theo kết luận của hội đồng khám sức khỏe."], correct: 3 },
-            { id: 64, lesson: 2, q: "Căn cứ nào được nêu để tạm hoãn gọi nhập ngũ vì lý do sức khỏe?", options: ["Ý muốn cá nhân.", "Kết luận của hội đồng khám sức khỏe về việc chưa đủ sức khỏe.", "Tình trạng có việc làm.", "Việc đã kết hôn."], correct: 1 },
-            { id: 65, lesson: 2, q: "Đối tượng nào được miễn gọi nhập ngũ theo tài liệu?", options: ["Người đang học THPT.", "Người có việc làm ổn định.", "Con của liệt sĩ.", "Người chưa kết hôn."], correct: 2 },
-            { id: 66, lesson: 2, q: "Trong các đối tượng sau, ai được nêu là thuộc diện miễn gọi nhập ngũ?", options: ["Con của liệt sĩ.", "Người đang học THPT.", "Người có việc làm ổn định.", "Người chưa kết hôn."], correct: 0 },
-            { id: 67, lesson: 2, q: "Hành vi nào bị nghiêm cấm trong thực hiện nghĩa vụ quân sự?", options: ["Đăng kí nghĩa vụ quân sự.", "Chấp hành lệnh khám sức khỏe.", "Tham gia tuyên truyền nghĩa vụ quân sự.", "Gian dối trong khám sức khỏe nghĩa vụ quân sự."], correct: 3 },
-            { id: 68, lesson: 2, q: "Một hành vi vi phạm bị nghiêm cấm khi khám sức khỏe nghĩa vụ quân sự là gì?", options: ["Chấp hành yêu cầu khám sức khỏe.", "Gian dối trong khám sức khỏe.", "Tìm hiểu quy định pháp luật.", "Đăng kí nghĩa vụ quân sự."], correct: 1 },
-            { id: 69, lesson: 2, q: "Khi xuất ngũ, hạ sĩ quan, binh sĩ được hưởng quyền lợi nào?", options: ["Không được hưởng chế độ nào.", "Không được tiếp tục học tập.", "Được hưởng chế độ, trợ cấp theo quy định, trong đó có tiền tàu xe và phụ cấp đi đường.", "Không được hỗ trợ tìm việc làm."], correct: 2 },
-            { id: 70, lesson: 2, q: "Quyền lợi nào được nêu đối với hạ sĩ quan, binh sĩ khi xuất ngũ?", options: ["Các chế độ, trợ cấp theo quy định, gồm tiền tàu xe và phụ cấp đi đường.", "Không được hưởng bất cứ chế độ nào.", "Không được tiếp tục học tập.", "Không được hỗ trợ tìm việc làm."], correct: 0 },
-            { id: 71, lesson: 2, q: "Công dân nam đủ 17 tuổi trong năm thuộc diện nào?", options: ["Được miễn nghĩa vụ quân sự.", "Được gọi nhập ngũ ngay lập tức.", "Không cần đăng kí nghĩa vụ quân sự.", "Đăng kí nghĩa vụ quân sự lần đầu."], correct: 3 },
-            { id: 72, lesson: 2, q: "Nam công dân đủ 17 tuổi trong năm cần thực hiện việc gì theo tài liệu?", options: ["Chờ đến 20 tuổi mới đăng kí.", "Đăng kí nghĩa vụ quân sự lần đầu.", "Không cần đăng kí.", "Được miễn nghĩa vụ quân sự."], correct: 1 },
-            { id: 73, lesson: 2, q: "Đối tượng tuyển chọn thực hiện nghĩa vụ tham gia Công an nhân dân gồm những ai?", options: ["Tất cả công dân không phân biệt độ tuổi.", "Chỉ công dân đã tốt nghiệp đại học.", "Công dân nam trong độ tuổi gọi nhập ngũ đã đăng kí; công dân nữ đủ điều kiện nếu tự nguyện và Công an nhân dân có nhu cầu.", "Chỉ công dân nữ."], correct: 2 },
-            { id: 74, lesson: 2, q: "Theo tài liệu, công dân nữ có thể được tuyển chọn thực hiện nghĩa vụ tham gia Công an nhân dân khi nào?", options: ["Khi đủ điều kiện, tự nguyện và Công an nhân dân có nhu cầu.", "Trong mọi trường hợp, không cần tự nguyện.", "Chỉ khi đã tốt nghiệp đại học.", "Không thuộc đối tượng tuyển chọn trong bất cứ trường hợp nào."], correct: 0 },
-            { id: 75, lesson: 2, q: "Tiêu chuẩn học vấn thông thường để tuyển chọn thực hiện nghĩa vụ tham gia Công an nhân dân là gì?", options: ["Tiểu học trở lên.", "THCS trở lên trong mọi trường hợp.", "Đại học trở lên.", "Tốt nghiệp THPT trở lên, trừ một số trường hợp được quy định."], correct: 3 },
-            { id: 76, lesson: 2, q: "Trình độ học vấn thông thường được nêu đối với người thực hiện nghĩa vụ tham gia Công an nhân dân là mức nào?", options: ["Tốt nghiệp tiểu học.", "Tốt nghiệp THPT trở lên, trừ một số trường hợp theo quy định.", "Tốt nghiệp đại học trở lên.", "Không yêu cầu học vấn."], correct: 1 },
-            { id: 77, lesson: 2, q: "Trách nhiệm phù hợp của học sinh đối với nghĩa vụ quân sự là gì?", options: ["Không cần tìm hiểu pháp luật.", "Trốn tránh các hoạt động liên quan.", "Tích cực học tập kiến thức quốc phòng và an ninh, thực hiện trách nhiệm phù hợp với lứa tuổi.", "Khuyên người khác không thực hiện nghĩa vụ quân sự."], correct: 2 },
-            { id: 78, lesson: 2, q: "Học sinh cần làm gì để thể hiện trách nhiệm đối với nghĩa vụ quân sự?", options: ["Học tập kiến thức quốc phòng và an ninh, thực hiện trách nhiệm phù hợp với lứa tuổi.", "Không tìm hiểu pháp luật.", "Trốn tránh các hoạt động liên quan.", "Cản trở người khác thực hiện nghĩa vụ quân sự."], correct: 0 },
-            { id: 79, lesson: 2, q: "Hành vi nào thể hiện trách nhiệm của công dân đối với nghĩa vụ quân sự?", options: ["Trốn tránh lệnh gọi nhập ngũ.", "Gian dối khi khám sức khỏe.", "Cản trở người khác thực hiện nghĩa vụ quân sự.", "Chấp hành nghiêm quy định pháp luật về nghĩa vụ quân sự."], correct: 3 },
-            { id: 80, lesson: 2, q: "Công dân cần ứng xử thế nào với các quy định của pháp luật về nghĩa vụ quân sự?", options: ["Tìm cách né tránh.", "Chấp hành nghiêm quy định pháp luật.", "Gian dối khi khám sức khỏe.", "Cản trở người khác thực hiện."], correct: 1 },
+          <!-- Options List -->
+          <div id="options-container" class="space-y-3">
+            <!-- Options injected via JS -->
+          </div>
 
-            // BÀI 3
-            { id: 81, lesson: 3, q: "Tội phạm là hành vi như thế nào?", options: ["Hành vi không tuân thủ nội quy trường học.", "Hành vi không phù hợp với sở thích cá nhân.", "Hành vi nguy hiểm cho xã hội được quy định trong Bộ luật Hình sự.", "Hành vi không tuân thủ quy định gia đình."], correct: 2 },
-            { id: 82, lesson: 3, q: "Dấu hiệu nào được dùng để mô tả tội phạm trong tài liệu?", options: ["Là hành vi nguy hiểm cho xã hội được quy định trong Bộ luật Hình sự.", "Là mọi hành vi trái sở thích cá nhân.", "Là mọi lỗi vi phạm nội quy lớp học.", "Là mọi hành vi không theo mong muốn gia đình."], correct: 0 },
-            { id: 83, lesson: 3, q: "Hành vi nào sau đây được xem là một loại tội phạm trong các lựa chọn?", options: ["Giúp đỡ người khó khăn.", "Tham gia hoạt động tình nguyện.", "Chấp hành pháp luật.", "Trộm cắp tài sản."], correct: 3 },
-            { id: 84, lesson: 3, q: "Ví dụ nào được tài liệu nêu là hành vi phạm tội?", options: ["Tham gia hoạt động từ thiện.", "Trộm cắp tài sản.", "Giúp đỡ người khó khăn.", "Chấp hành pháp luật."], correct: 1 },
-            { id: 85, lesson: 3, q: "Một trong những cách thức hoạt động phổ biến của tội phạm là gì?", options: ["Hoạt động công khai và hợp pháp.", "Tham gia hoạt động từ thiện.", "Câu kết thành các băng nhóm, tổ chức để hoạt động.", "Tuyên truyền pháp luật."], correct: 2 },
-            { id: 86, lesson: 3, q: "Theo tài liệu, tội phạm có thể hoạt động bằng cách nào?", options: ["Câu kết thành các băng nhóm, tổ chức để hoạt động.", "Chỉ tham gia hoạt động tình nguyện.", "Tổ chức tuyên truyền pháp luật.", "Hoạt động công khai và hợp pháp."], correct: 0 },
-            { id: 87, lesson: 3, q: "Tội phạm sử dụng công nghệ cao là hành vi nguy hiểm cho xã hội thông qua việc sử dụng gì?", options: ["Các phương tiện lao động thông thường.", "Các hoạt động thể thao.", "Các phương tiện giao thông công cộng.", "Tri thức, kĩ năng, công cụ và phương tiện công nghệ thông tin ở trình độ cao."], correct: 3 },
-            { id: 88, lesson: 3, q: "Yếu tố nào gắn với hành vi phạm tội sử dụng công nghệ cao?", options: ["Chỉ sử dụng phương tiện giao thông công cộng.", "Sử dụng tri thức, kĩ năng, công cụ và phương tiện công nghệ thông tin ở trình độ cao.", "Chỉ sử dụng công cụ lao động thông thường.", "Chỉ tham gia hoạt động thể thao."], correct: 1 },
-            { id: 89, lesson: 3, q: "Hành vi nào sau đây là tội phạm sử dụng công nghệ cao?", options: ["Học trực tuyến.", "Tìm kiếm tài liệu học tập.", "Lừa đảo chiếm đoạt tài sản trên không gian mạng.", "Trao đổi bài tập với bạn bè."], correct: 2 },
-            { id: 90, lesson: 3, q: "Ví dụ nào được nêu về tội phạm sử dụng công nghệ cao?", options: ["Lừa đảo chiếm đoạt tài sản trên không gian mạng.", "Học trực tuyến.", "Trao đổi bài tập với bạn bè.", "Tìm kiếm tài liệu học tập."], correct: 0 },
-            { id: 91, lesson: 3, q: "Đánh bạc trên không gian mạng được xem là hành vi nào khi đủ yếu tố cấu thành vi phạm?", options: ["Hoạt động giải trí hợp pháp trong mọi trường hợp.", "Hoạt động học tập.", "Hoạt động nghiên cứu khoa học.", "Hành vi vi phạm pháp luật."], correct: 3 },
-            { id: 92, lesson: 3, q: "Theo tài liệu, đánh bạc trên không gian mạng có thể bị xem là vi phạm pháp luật trong trường hợp nào?", options: ["Trong mọi trường hợp đều là hoạt động học tập.", "Khi đủ yếu tố cấu thành vi phạm.", "Khi được gọi là nghiên cứu khoa học.", "Khi thực hiện để tìm kiếm tài liệu."], correct: 1 },
-            { id: 93, lesson: 3, q: "Hành vi nào bị nghiêm cấm trong phòng, chống tội phạm sử dụng công nghệ cao?", options: ["Bảo vệ thông tin cá nhân.", "Sử dụng internet để học tập.", "Xâm nhập trái phép vào mạng máy tính, mạng viễn thông hoặc phương tiện điện tử của người khác.", "Tìm hiểu kiến thức an toàn mạng."], correct: 2 },
-            { id: 94, lesson: 3, q: "Một hành vi bị nghiêm cấm liên quan đến mạng máy tính là gì?", options: ["Xâm nhập trái phép vào mạng máy tính, mạng viễn thông hoặc phương tiện điện tử của người khác.", "Bảo vệ thông tin cá nhân.", "Tìm hiểu kiến thức an toàn mạng.", "Sử dụng internet để học tập."], correct: 0 },
-            { id: 95, lesson: 3, q: "Tệ nạn xã hội là gì?", options: ["Hiện tượng xã hội tích cực.", "Hoạt động vui chơi lành mạnh.", "Hoạt động văn hóa cộng đồng.", "Hiện tượng xã hội tiêu cực, biểu hiện bằng hành vi sai lệch chuẩn mực xã hội, vi phạm đạo đức, pháp luật và gây nguy hiểm cho xã hội."], correct: 3 },
-            { id: 96, lesson: 3, q: "Đặc điểm nào phù hợp với khái niệm tệ nạn xã hội trong tài liệu?", options: ["Luôn là hoạt động vui chơi lành mạnh.", "Là hiện tượng tiêu cực, có hành vi sai lệch chuẩn mực xã hội và có thể vi phạm đạo đức, pháp luật.", "Chỉ là hoạt động văn hóa cộng đồng.", "Là hiện tượng xã hội tích cực."], correct: 1 },
-            { id: 97, lesson: 3, q: "Tệ nạn ma túy được mô tả như thế nào?", options: ["Sử dụng thuốc theo chỉ định của bác sĩ.", "Sử dụng thực phẩm chức năng.", "Sử dụng trái phép chất ma túy và các hành vi vi phạm pháp luật về ma túy.", "Tham gia hoạt động thể thao."], correct: 2 },
-            { id: 98, lesson: 3, q: "Nội dung nào thuộc tệ nạn ma túy theo tài liệu?", options: ["Sử dụng trái phép chất ma túy và các hành vi vi phạm pháp luật về ma túy.", "Sử dụng thuốc theo chỉ định của bác sĩ.", "Sử dụng thực phẩm chức năng.", "Tham gia hoạt động thể thao."], correct: 0 },
-            { id: 99, lesson: 3, q: "Tệ nạn cờ bạc bao gồm hành vi nào?", options: ["Chơi các môn thể thao.", "Tham gia hoạt động văn nghệ.", "Chơi trò chơi giáo dục.", "Lợi dụng hình thức vui chơi, giải trí để cá cược, sát phạt bằng tiền hoặc hiện vật."], correct: 3 },
-            { id: 100, lesson: 3, q: "Dấu hiệu nào thể hiện tệ nạn cờ bạc được nêu trong tài liệu?", options: ["Chơi các môn thể thao.", "Cá cược, sát phạt bằng tiền hoặc hiện vật dưới hình thức vui chơi, giải trí.", "Tham gia hoạt động văn nghệ.", "Chơi trò chơi giáo dục."], correct: 1 },
-            { id: 101, lesson: 3, q: "Hành vi nào sau đây thuộc tệ nạn mê tín dị đoan?", options: ["Tham gia hoạt động khoa học.", "Tổ chức hoạt động thể thao.", "Bói toán, đồng bóng, yếm bùa, cúng giải hạn để kiếm tiền.", "Tìm hiểu kiến thức lịch sử."], correct: 2 },
-            { id: 102, lesson: 3, q: "Ví dụ nào được nêu về mê tín dị đoan?", options: ["Bói toán, đồng bóng, yểm bùa, cúng giải hạn để kiếm tiền.", "Tham gia hoạt động khoa học.", "Tổ chức hoạt động thể thao.", "Tìm hiểu kiến thức lịch sử."], correct: 0 },
-            { id: 103, lesson: 3, q: "Pháp luật nghiêm cấm hành vi nào liên quan đến mại dâm?", options: ["Tuyên truyền phòng chống mại dâm.", "Giúp đỡ người có hoàn cảnh khó khăn.", "Tổ chức hoạt động giáo dục.", "Bán dâm, mua dâm, chứa mại dâm, môi giới mại dâm."], correct: 3 },
-            { id: 104, lesson: 3, q: "Nhóm hành vi nào bị nghiêm cấm theo nội dung về phòng, chống mại dâm?", options: ["Tuyên truyền phòng chống mại dâm.", "Bán dâm, mua dâm, chứa mại dâm và môi giới mại dâm.", "Giúp đỡ người có hoàn cảnh khó khăn.", "Tổ chức hoạt động giáo dục."], correct: 1 },
-            { id: 105, lesson: 3, q: "Công dân có nghĩa vụ gì trong phòng, chống tội phạm và tệ nạn xã hội?", options: ["Che giấu hành vi phạm tội.", "Tiếp tay cho người vi phạm.", "Tuân theo Hiến pháp và pháp luật, tham gia bảo vệ an ninh quốc gia, giữ gìn trật tự, an toàn xã hội.", "Không quan tâm đến an ninh xã hội."], correct: 2 },
-            { id: 106, lesson: 3, q: "Nội dung nào thể hiện đúng nghĩa vụ của công dân trong phòng, chống tội phạm?", options: ["Tuân theo Hiến pháp, pháp luật và tham gia giữ gìn trật tự, an toàn xã hội.", "Che giấu hành vi phạm tội.", "Tiếp tay cho người vi phạm.", "Không quan tâm đến an ninh xã hội."], correct: 0 },
-            { id: 107, lesson: 3, q: "Học sinh cần làm gì để phòng tránh tội phạm và tệ nạn xã hội?", options: ["Tham gia các hoạt động vi phạm pháp luật.", "Tin tưởng mọi thông tin trên mạng.", "Che giấu hành vi sai trái của bạn bè.", "Tích cực học tập, nâng cao nhận thức và chấp hành pháp luật."], correct: 3 },
-            { id: 108, lesson: 3, q: "Việc làm nào phù hợp với trách nhiệm của học sinh trong phòng tránh tội phạm?", options: ["Tin tưởng mọi thông tin trên mạng.", "Tích cực học tập, nâng cao nhận thức và chấp hành pháp luật.", "Che giấu mọi hành vi sai trái của bạn bè.", "Tham gia hoạt động vi phạm pháp luật."], correct: 1 },
-            { id: 109, lesson: 3, q: "Khi phát hiện hành vi lừa đảo trên không gian mạng, em nên làm gì?", options: ["Chia sẻ thông tin cá nhân cho đối tượng.", "Làm theo yêu cầu của người lạ.", "Báo cho người lớn đáng tin cây hoặc cơ quan chức năng.", "Chuyển tiền cho đối tượng để kiểm tra."], correct: 2 },
-            { id: 110, lesson: 3, q: "Cách xử lí phù hợp khi phát hiện dấu hiệu lừa đảo trên mạng là gì?", options: ["Báo cho người lớn đáng tin cậy hoặc cơ quan chức năng.", "Chia sẻ thêm thông tin cá nhân.", "Làm theo yêu cầu của người lạ.", "Chuyển tiền để đối tượng kiểm tra."], correct: 0 },
-            { id: 111, lesson: 3, q: "Hành vi nào không phải là ví dụ về tội phạm trong các phương án được nêu?", options: ["Trộm cắp tài sản.", "Lừa đảo chiếm đoạt tài sản trên không gian mạng.", "Đánh bạc trên không gian mạng khi đủ yếu tố cấu thành vi phạm.", "Giúp đỡ người khó khăn."], correct: 3 },
-            { id: 112, lesson: 3, q: "Hành vi nào thể hiện việc sử dụng internet đúng mục đích học tập, không phải ví dụ tội phạm công nghệ cao trong tài liệu?", options: ["Lừa đảo chiếm đoạt tài sản trên không gian mạng.", "Học trực tuyến.", "Xâm nhập trái phép vào mạng máy tính của người khác.", "Đánh bạc trên không gian mạng khi đủ yếu tố cấu thành vi phạm."], correct: 1 },
-            { id: 113, lesson: 3, q: "Khi sử dụng internet, hành vi nào phù hợp với nội dung phòng, chống tội phạm công nghệ cao?", options: ["Xâm nhập trái phép vào phương tiện điện tử của người khác.", "Lừa đảo chiếm đoạt tài sản.", "Bảo vệ thông tin cá nhân và tìm hiểu kiến thức an toàn mạng.", "Đánh bạc trên không gian mạng."], correct: 2 },
-            { id: 114, lesson: 3, q: "Tệ nạn xã hội có thể gây ra điều gì theo khái niệm trong tài liệu?", options: ["Nguy hiểm cho xã hội.", "Chỉ tạo ra hoạt động vui chơi lành mạnh.", "Chỉ tạo ra hoạt động văn hóa cộng đồng.", "Không liên quan đến đạo đức và pháp luật."], correct: 0 },
-            { id: 115, lesson: 3, q: "Hành vi sử dụng trái phép chất ma túy thuộc nhóm vấn đề nào?", options: ["Hoạt động thể thao.", "Hoạt động học tập.", "Hoạt động văn hóa cộng đồng.", "Tệ nạn ma túy."], correct: 3 },
-            { id: 116, lesson: 3, q: "Hành vi nào sau đây thuộc nhóm hành vi liên quan đến mại dâm bị nghiêm cấm?", options: ["Tuyên truyền phòng chống mại dâm.", "Môi giới mại dâm.", "Tổ chức hoạt động giáo dục.", "Giúp đỡ người có hoàn cảnh khó khăn."], correct: 1 },
-            { id: 117, lesson: 3, q: "Một học sinh nhận được tin nhắn có dấu hiệu lừa đảo trên mạng. Hành động nào phù hợp nhất với tài liệu?", options: ["Chuyển tiền theo yêu cầu.", "Gửi thông tin cá nhân.", "Báo cho người lớn đáng tin cậy hoặc cơ quan chức năng.", "Làm theo hướng dẫn của người lạ."], correct: 2 },
-            { id: 118, lesson: 3, q: "Cách ứng xử nào giúp học sinh phòng tránh nguy cơ lừa đảo trên không gian mạng theo nội dung tài liệu?", options: ["Chủ động bảo vệ thông tin cá nhân và báo cho người lớn đáng tin cậy khi phát hiện dấu hiệu lừa đảo.", "Chia sẻ thông tin cá nhân cho người lạ.", "Chuyển tiền để xác minh yêu cầu.", "Làm theo mọi hướng dẫn nhận được qua mạng."], correct: 0 },
-            { id: 119, lesson: 3, q: "Tích cực học tập, nâng cao nhận thức và chấp hành pháp luật là việc học sinh cần làm để làm gì?", options: ["Tránh tham gia mọi hoạt động học tập.", "Phòng tránh tội phạm và tệ nạn xã hội.", "Che giấu hành vi sai trái.", "Tin tưởng tất cả thông tin trên mạng."], correct: 1 },
-            { id: 120, lesson: 3, q: "Theo tài liệu, công dân cần tham gia bảo vệ nội dung nào khi phòng, chống tội phạm và tệ nạn xã hội?", options: ["Chỉ bảo vệ tài sản cá nhân.", "Chỉ giữ gìn hoạt động vui chơi.", "An ninh quốc gia, trật tự và an toàn xã hội.", "Chỉ quan tâm đến hoạt động ở trường học."], correct: 2 }
-        ];
+          <!-- Explanation Box -->
+          <div id="explanation-box" class="hidden mt-5 p-4 rounded-lg bg-slate-50 border border-slate-200 text-sm text-slate-700">
+            <div class="font-bold text-indigo-700 mb-1 flex items-center">
+              <i class="fa-solid fa-lightbulb mr-2 text-amber-500"></i>Giải thích đáp án:
+            </div>
+            <p id="explanation-text" class="leading-relaxed"></p>
+          </div>
+        </div>
 
-        // State variables
-        let appState = {
-            mode: 'practice', // 'practice' or 'exam'
-            lessonFilter: 'all', // 'all', 1, 2, 3
-            examLength: 40, // 20 or 40
-            currentQuestions: [],
-            currentIndex: 0,
-            userAnswers: {},
-            timer: null,
-            timeLeft: 0,
-            isFinished: false
-        };
+        <!-- Navigation Action Buttons -->
+        <div class="mt-8 pt-4 border-t border-slate-100 flex justify-between items-center">
+          <button id="btn-prev" onclick="prevQuestion()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded-lg transition disabled:opacity-40 disabled:cursor-not-allowed">
+            <i class="fa-solid fa-arrow-left mr-2"></i>Câu trước
+          </button>
+          
+          <div class="space-x-2">
+            <button id="btn-check" onclick="checkCurrentAnswer()" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-medium rounded-lg transition shadow-sm">
+              <i class="fa-solid fa-check mr-1.5"></i>Kiểm tra
+            </button>
+            <button id="btn-next" onclick="nextQuestion()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition shadow-sm">
+              Câu sau<i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        // Render Functions
-        function goHome() {
-            if (appState.timer) clearInterval(appState.timer);
-            appState.isFinished = false;
-            renderHomeScreen();
+    <!-- Right Sidebar: Question Palette & Final Submit -->
+    <aside class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-between">
+      <div>
+        <h3 class="font-bold text-slate-800 text-base mb-3 flex items-center justify-between">
+          <span>Danh sách câu hỏi</span>
+          <i class="fa-solid fa-list-check text-slate-400"></i>
+        </h3>
+        
+        <div id="question-grid" class="grid grid-cols-5 gap-2 max-h-[380px] overflow-y-auto p-1">
+          <!-- 40 Question status buttons -->
+        </div>
+
+        <!-- Legend -->
+        <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-500 space-y-2">
+          <div class="flex items-center space-x-2">
+            <span class="w-3.5 h-3.5 rounded border border-slate-300 bg-slate-100"></span>
+            <span>Chưa làm</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <span class="w-3.5 h-3.5 rounded bg-indigo-600"></span>
+            <span>Đã chọn đáp án</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <span class="w-3.5 h-3.5 rounded bg-emerald-500"></span>
+            <span>Đúng</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <span class="w-3.5 h-3.5 rounded bg-rose-500"></span>
+            <span>Sai</span>
+          </div>
+        </div>
+      </div>
+
+      <button onclick="submitQuiz()" class="w-full mt-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-md hover:shadow-lg transition flex items-center justify-center space-x-2">
+        <i class="fa-solid fa-paper-plane"></i>
+        <span>Nộp Bài Thi</span>
+      </button>
+    </aside>
+
+  </main>
+
+  <!-- Modal Kết Quả -->
+  <div id="result-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 text-center space-y-5 animate-in fade-in zoom-in duration-200">
+      <div class="w-16 h-16 mx-auto rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-3xl">
+        <i class="fa-solid fa-trophy"></i>
+      </div>
+      <div>
+        <h3 class="text-2xl font-bold text-slate-800">Kết Quả Bài Làm</h3>
+        <p class="text-sm text-slate-500 mt-1">Đề kiểm tra GDQP-AN 11 - Mã 001</p>
+      </div>
+
+      <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 grid grid-cols-2 gap-4">
+        <div>
+          <div class="text-xs text-slate-500 uppercase font-bold tracking-wider">Điểm số</div>
+          <div id="modal-score" class="text-3xl font-extrabold text-indigo-600 mt-1">0/10</div>
+        </div>
+        <div>
+          <div class="text-xs text-slate-500 uppercase font-bold tracking-wider">Số câu đúng</div>
+          <div id="modal-correct-count" class="text-3xl font-extrabold text-emerald-600 mt-1">0/40</div>
+        </div>
+      </div>
+
+      <div id="modal-feedback" class="text-sm font-medium text-slate-700 px-2"></div>
+
+      <div class="flex space-x-3 pt-2">
+        <button onclick="closeModal()" class="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl transition">
+          Xem Lại Bài
+        </button>
+        <button onclick="resetQuiz(); closeModal();" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition shadow-md">
+          Làm Lại Lần Nữa
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      { id: 1, q: "Khi đủ 17 tuổi trở lên đối tượng nào phải đăng ký nghĩa vụ quân sự?", options: ["A. Công dân nam.", "B. Công dân nữ.", "C. Các ý đều sai.", "D. Các ý đều đúng."], ans: 0, exp: "Theo Khoản 1 Điều 12 Luật NVQS 2015, công dân nam đủ 17 tuổi trở lên thuộc đối tượng phải đăng ký nghĩa vụ quân sự." },
+      { id: 2, q: "Độ tuổi nào được qui định phải gọi nhập ngũ?", options: ["A. Đủ 17 tuổi hết 25 tuổi.", "B. Đủ 18 tuổi hết 28 tuổi.", "C. Đủ 18 tuổi hết 25 tuổi.", "D. Đủ 19 tuổi hết 25 tuổi."], ans: 2, exp: "Độ tuổi gọi nhập ngũ thông thường là từ đủ 18 tuổi đến hết 25 tuổi (trường hợp học ĐH/CĐ được hoãn thì gọi đến hết 27 tuổi)." },
+      { id: 3, q: "Công dân nam đủ 17 tuổi không đăng ký Nghĩa vụ quân sự lần đầu thuộc diện phải đăng ký nghĩa vụ quân sự thì bị phạt?", options: ["A. Cảnh cáo.", "B. 11 triệu đến 13 triệu.", "C. 14 triệu đến 16 triệu.", "D. 17 triệu đến 20 triệu."], ans: 0, exp: "Căn cứ Nghị định 120/2013/NĐ-CP, vi phạm quy định về đăng ký NVQS lần đầu đối với nam đủ 17 tuổi áp dụng hình thức phạt cảnh cáo." },
+      { id: 4, q: "Không có mặt đúng thời gian hoặc địa điểm khám sức khỏe ghi trong quyết định gọi khám sức khỏe NVQS cấp có thẩm quyền mà không có lý do chính đáng thì bị phạt?", options: ["A. 11 triệu đến 14 triệu.", "B. 15 triệu đến 17 triệu.", "C. 17 triệu đến 19 triệu.", "D. 15 triệu đến 20 triệu."], ans: 0, exp: "Phạt tiền từ 11.000.000 đồng đến 14.000.000 đồng đối với hành vi không có mặt đúng thời gian hoặc địa điểm khám sức khỏe." },
+      { id: 5, q: "Nội dung nào sau đây quy định đối với học sinh?", options: ["A. Chấp hành nghiêm lệnh gọi nhập ngũ.", "B. Tham gia nghĩa vụ công an nhân dân.", "C. Học tập tốt môn Giáo dục quốc phòng và an ninh.", "D. Các ý đều đúng."], ans: 2, exp: "Học sinh đang ngồi trên ghế nhà trường có trách nhiệm học tập tốt môn Giáo dục quốc phòng và an ninh." },
+      { id: 6, q: "Học sinh đang học một khóa học tại trường THPT thuộc đối tượng nào sau đây?", options: ["A. Tạm hoãn gọi nhập ngũ.", "B. Miễn gọi nhập ngũ.", "C. Các ý đều sai.", "D. Các ý đều đúng."], ans: 0, exp: "Theo Điểm g Khoản 1 Điều 41 Luật NVQS 2015, công dân đang học tại cơ sở giáo dục phổ thông thuộc diện tạm hoãn gọi nhập ngũ." },
+      { id: 7, q: "Luật Nghĩa vụ quân sự 2015 bao gồm mấy chương, mấy điều?", options: ["A. 11 chương, 71 điều.", "B. 8 chương, 61 điều.", "C. 10 chương, 70 điều.", "D. 9 chương, 62 điều."], ans: 3, exp: "Luật Nghĩa vụ quân sự số 78/2015/QH13 gồm 9 chương và 62 điều." },
+      { id: 8, q: "Tội phạm là hành vi nguy hiểm cho xã hội được quy định?", options: ["A. Trong Bộ luật Hình sự", "B. Trong Bộ luật Dân sự", "C. Trong Bộ luật Lao động", "D. Trong Bộ luật Tố tụng Dân sự"], ans: 0, exp: "Khái niệm Tội phạm và các mức độ nguy hiểm được quy định tại Bộ luật Hình sự." },
+      { id: 9, q: "Tội phạm nào sau đây ở mức độ nguy hiểm nhất cho xã hội?", options: ["A. Trộm cắp", "B. Giết người", "C. Đánh bạc", "D. Đua xe"], ans: 1, exp: "Tội giết người tước đoạt quyền sống của con người, thuộc nhóm tội đặc biệt nghiêm trọng." },
+      { id: 10, q: "Tội phạm công nghệ cao thường hoạt động ở đâu?", options: ["A. Trên không gian mạng", "B. Thực hiện cướp trực tiếp tài sản của người dân", "C. Các ý đều sai", "D. Các ý đều đúng"], ans: 0, exp: "Tội phạm công nghệ cao sử dụng mạng máy tính, mạng viễn thông để thực hiện hành vi vi phạm trên không gian mạng." },
+      { id: 11, q: "Em hiểu thế nào về tệ nạn cờ bạc?", options: ["A. Biểu hiện thái quá lòng tin mù quáng vào những trò chơi", "B. Cá cược, sát phạt nhau bằng tiền", "C. Các ý đều sai", "D. Các ý đều đúng"], ans: 1, exp: "Tệ nạn cờ bạc là hành vi đánh bạc trái phép dưới mọi hình thức sát phạt được thua bằng tiền hoặc tài sản." },
+      { id: 12, q: "Tội phạm giết người được áp dụng trong bộ luật nào sau đây?", options: ["A. Trong Bộ luật Dân sự", "B. Trong Bộ luật Hình sự", "C. Trong Bộ luật Lao động", "D. Trong Bộ luật Tố tụng Dân sự"], ans: 1, exp: "Tội giết người là tội phạm hình sự nguy hiểm được quy định tại Điều 123 Bộ luật Hình sự." },
+      { id: 13, q: "Các đối tượng phạm tội có mục đích nào khi sử dụng không gian mạng đăng thông tin độc hại?", options: ["A. Tăng thêm tính đoàn kết cộng đồng.", "B. Ngăn chặn, làm giảm tội phạm.", "C. Xúi giục, lôi kéo, kích động người khác phạm tội.", "D. Kích thích kinh tế phát triển."], ans: 2, exp: "Đăng thông tin độc hại nhằm xúi giục, kích động, lôi kéo người khác phạm tội và chống phá an ninh trật tự." },
+      { id: 14, q: "Pháp luật nghiêm cấm hành vi nào dưới đây?", options: ["A. Khuyến khích trẻ em tham gia vào các hoạt động vui chơi lành mạnh.", "B. Tích cực tuyên truyền về những tác hại của ma tuý.", "C. Lôi kéo người khác tham gia đánh bạc, sử dụng trái phép ma tuý.", "D. Triệt phá cây thuốc phiện."], ans: 2, exp: "Lôi kéo, rủ rê người khác đánh bạc hoặc sử dụng ma túy là hành vi nguy hiểm bị pháp luật nghiêm cấm." },
+      { id: 15, q: "Là học sinh khi phát hiện những hành vi vi phạm chủ quyền lãnh thổ, BGQG cần phải làm gì?", options: ["A. Tự ý xử lý khi không đủ khả năng ngăn chặn.", "B. Báo cáo kịp thời với nhà trường, chính quyền địa phương, lực lượng chức năng.", "C. Tiếp tay cho tội phạm chống phá vùng biên giới.", "D. Xem như không thấy gì làm ngơ."], ans: 1, exp: "Học sinh cần chủ động báo cáo cho nhà trường hoặc cơ quan chức năng gần nhất." },
+      { id: 16, q: "“Các Vua Hùng đã có công dựng nước, Bác cháu ta phải cùng nhau giữ lấy nước” là câu nói của:", options: ["A. Võ Nguyên Giáp.", "B. Lý Tự Trọng.", "C. Trần Phú.", "D. Bác Hồ."], ans: 3, exp: "Đây là câu nói nổi tiếng của Bác Hồ với cán bộ chiến sĩ tại Đền Hùng ngày 19/9/1954." },
+      { id: 17, q: "Những ai có trách nhiệm bảo vệ chủ quyền lãnh thổ, biên giới quốc gia nước CHXHCNVN?", options: ["A. Công an, Dân quân tự vệ.", "B. Quân đội.", "C. Toàn dân.", "D. Đảng, Nhà nước."], ans: 2, exp: "Bảo vệ Tổ quốc và chủ quyền biên giới quốc gia là nghĩa vụ thiêng liêng của toàn dân." },
+      { id: 18, q: "Biên giới quốc gia trên biển được xác định như thế nào?", options: ["A. Dùng phao đánh dấu.", "B. Căng dây.", "C. Các tọa độ trên hải đồ.", "D. Cắm cột làm dấu."], ans: 2, exp: "Biên giới quốc gia trên biển được hoạch định bằng các tọa độ chuẩn trên hải đồ." },
+      { id: 19, q: "Vùng biển quốc tế được hiểu như thế nào?", options: ["A. Thuộc chủ quyền của một quốc gia.", "B. Là vùng biển của một số quốc gia nhất định.", "C. Là vùng biển các nước tự do qua lại.", "D. Các ý vừa nêu đều sai."], ans: 2, exp: "Vùng biển quốc tế nằm ngoài vùng biển chủ quyền của các nước, các quốc gia được tự do hàng hải." },
+      { id: 20, q: "Đối tượng nào được xem như hoàn thành nghĩa vụ quân sự?", options: ["A. Công dân phục vụ trong cảnh sát biển.", "B. Công dân phục vụ trong công an nhân dân.", "C. Công dân phục vụ trong dân quân thường trực.", "D. Các ý đều đúng."], ans: 3, exp: "Căn cứ Khoản 4 Điều 4 Luật NVQS 2015, phục vụ đủ thời hạn trong CAND, CSB hay Dân quân thường trực đều được xem như hoàn thành NVQS." },
+      { id: 21, q: "Tội trộm cắp tài sản ở mức độ nhẹ xử lý thế nào?", options: ["A. Phạt tù giam giữ", "B. Phạt hành chính", "C. Không xử phạt", "D. Nhắc nhở, cảnh cáo"], ans: 1, exp: "Trộm cắp tài sản giá trị nhỏ chưa đủ yếu tố cấu thành tội phạm hình sự thì bị phạt xử lý hành chính." },
+      { id: 22, q: "Đối tượng nào dưới đây được miễn đăng ký nghĩa vụ quân sự?", options: ["A. Người xăm hình.", "B. Người có anh, chị, em ruột đang thực hiện nghĩa vụ quân sự.", "C. Người có hoàn cảnh gia đình khó khăn.", "D. Người mắc bệnh hiểm nghèo; người mắc bệnh tâm thần hoặc bệnh mãn tính pháp luật quy định."], ans: 3, exp: "Theo Điều 14 Luật NVQS 2015, người mắc bệnh hiểm nghèo, tâm thần hoặc bệnh mãn tính thuộc diện miễn đăng ký NVQS." },
+      { id: 23, q: "Trong thời gian bao nhiêu ngày công dân phải đăng ký NVQS khi thay đổi nơi cư trú?", options: ["A. 10 ngày.", "B. 15 ngày.", "C. 20 ngày.", "D. 30 ngày."], ans: 1, exp: "Trong thời hạn 15 ngày làm việc, công dân di chuyển nơi cư trú phải làm thủ tục đăng ký chuyển NVQS." },
+      { id: 24, q: "Theo Luật Biên giới QG năm 2003, hành vi nào sau đây bị nghiêm cấm ở khu vực biên giới?", options: ["A. Phá hoại an ninh, trật tự, an toàn xã hội.", "B. Xâm phạm tài nguyên thiên nhiên.", "C. Các ý đều đúng.", "D. Bay vào khu vực cấm bay."], ans: 2, exp: "Tất cả các hành vi gây hại an ninh, tài nguyên, hay vi phạm vùng trời đều bị nghiêm cấm." },
+      { id: 25, q: "Hoàn thành tham gia liên tục 36 tháng trở lên đối tượng nào được xem hoàn thành NVQS?", options: ["A. Quân đội.", "B. Dân quân tự vệ.", "C. Công an.", "D. Viên chức quốc phòng."], ans: 1, exp: "Dân quân tự vệ nòng cốt hoàn thành nghĩa vụ liên tục từ 36 tháng trở lên được công nhận hoàn thành NVQS." },
+      { id: 26, q: "Chia sẻ những thông tin có kiểm duyệt trên không gian mạng có vi phạm Luật ANM không?", options: ["A. Có vi phạm Luật ANM.", "B. Không vi phạm Luật ANM.", "C. Các ý đều đúng.", "D. Các ý đều sai."], ans: 1, exp: "Thông tin đã qua kiểm duyệt và chính thống hoàn toàn không vi phạm Luật An ninh mạng." },
+      { id: 27, q: "Đâu không phải là cách thức hoạt động phổ biến của các loại tội phạm, TNXH ở Việt Nam:", options: ["A. Hoạt động cố định tại một khu vực.", "B. Sử dụng vũ khí, công cụ, phương tiện trong hoạt động.", "C. Cấu kết thành các băng nhóm, tổ chức để hoạt động.", "D. Sử dụng công nghệ cao trong quá trình hoạt động phạm tội."], ans: 0, exp: "Tội phạm thường biến động địa bàn, không hoạt động duy nhất và cố định một chỗ để lẩn tránh lực lượng chức năng." },
+      { id: 28, q: "Vùng lãnh hải của Việt Nam rộng bao nhiêu hải lý?", options: ["A. 12 hải lý.", "B. 188 hải lý.", "C. 338 hải lý.", "D. 24 hải lý."], ans: 0, exp: "Lãnh hải nước Việt Nam rộng 12 hải lý tính từ đường cơ sở ra phía biển." },
+      { id: 29, q: "Nội dung nào sau đây phản ánh đúng mục tiêu của Đảng về Chiến lược bảo vệ Tổ quốc Việt Nam xã hội chủ nghĩa trong tình hình mới?", options: ["A. Phát huy cao nhất sức mạnh của dân tộc kết hợp với sức mạnh của thời đại.", "B. Bảo vệ vững chắc độc lập, chủ quyền, thống nhất, toàn vẹn lãnh thổ của Tổ quốc.", "C. Quán triệt đường lối độc lập, tự chủ; đồng thời chủ động tích cực hội nhập quốc tế.", "D. Luôn nhất quán và kiên định mục tiêu độc lập dân tộc gắn liền với chủ nghĩa xã hội."], ans: 1, exp: "Mục tiêu trọng yếu hàng đầu là bảo vệ vững chắc độc lập, chủ quyền, thống nhất và toàn vẹn lãnh thổ." },
+      { id: 30, q: "Nội dung nào sau đây không phản ánh đúng quan điểm chỉ đạo của Đảng về Chiến lược bảo vệ Tổ quốc Việt Nam xã hội chủ nghĩa trong tình hình mới?", options: ["A. Giữ vững sự lãnh đạo trực tiếp, tuyệt đối về mọi mặt của Đảng.", "B. Giữ vững môi trường hòa bình, ổn định để phát triển kinh tế - xã hội.", "C. Chỉ chú trọng xây dựng sức mạnh của đất nước về văn hóa - xã hội.", "D. Kết hợp chặt chẽ hai nhiệm vụ chiến lược xây dựng và bảo vệ Tổ quốc."], ans: 2, exp: "Quan điểm của Đảng là phát triển toàn diện kinh tế, chính trị, quốc phòng, an ninh, đối ngoại chứ không 'chỉ chú trọng' riêng một mặt." },
+      { id: 31, q: "Bất kỳ thế lực nào có âm mưu và hành động chống phá mục tiêu của Việt Nam trong sự nghiệp xây dựng và bảo vệ Tổ quốc đều là", options: ["A. Đối tác.", "B. Đối tượng.", "C. Đồng đội.", "D. Đồng minh."], ans: 1, exp: "Những thế lực có âm mưu và hành động chống phá mục tiêu của ta đều là 'đối tượng' đấu tranh." },
+      { id: 32, q: "Theo quy định trong Luật Biển Việt Nam năm 2012: vùng biển quốc tế là tất cả các vùng biển nằm ngoài vùng đặc quyền kinh tế của Việt Nam và các quốc gia khác, nhưng không bao gồm", options: ["A. Vùng nội thủy và tiếp giáp lãnh hải.", "B. Lãnh hải và vùng tiếp giáp lãnh hải.", "C. Thềm lục địa và lòng đất dưới đáy biển.", "D. Vùng đặc quyền kinh tế."], ans: 2, exp: "Vùng biển quốc tế không bao gồm đáy biển và lòng đất dưới đáy biển." },
+      { id: 33, q: "Lãnh hải là vùng biển có chiều rộng 12 hải lý tính từ", options: ["A. Vùng nội thủy ra phía biển.", "B. Đường cơ sở ra phía biển.", "C. Ranh giới ngoài của lãnh hải.", "D. Ranh giới ngoài thềm lục địa."], ans: 1, exp: "Chiều rộng 12 hải lý của lãnh hải được tính từ đường cơ sở ra phía biển." },
+      { id: 34, q: "Việt Nam có hai quần đảo xa bờ là", options: ["A. Hoàng Sa và Thổ Chu.", "B. Hoàng Sa và Trường Sa.", "C. Trường Sa và Phú Quý.", "D. Thổ Chu và Phú Quý."], ans: 1, exp: "Hai quần đảo xa bờ thuộc chủ quyền Việt Nam là Hoàng Sa và Trường Sa." },
+      { id: 35, q: "Hành vi nào dưới đây bị nghiêm cấm trong bảo vệ biên giới quốc gia của Việt Nam?", options: ["A. Phá hoại an ninh, trật tự, an toàn xã hội ở khu vực biên giới.", "B. Bảo vệ môi trường, tài nguyên thiên nhiên và lợi ích quốc gia.", "C. Vận chuyển qua biên giới hàng hóa mà nhà nước không cấm.", "D. Tố giác những hành vi gây hư hại, làm xê dịch mốc quốc giới."], ans: 0, exp: "Phá hoại an ninh trật tự là hành vi vi phạm nghiêm trọng bị nghiêm cấm tại biên giới." },
+      { id: 36, q: "Người nào có chức trách quyết định về độ tuổi tuyển chọn và ngành nghề cần thiết để tuyển chọn công dân nữ thực hiện nghĩa vụ tham gia Công an nhân dân?", options: ["A. Bộ trưởng Bộ Quốc phòng.", "B. Bộ trưởng Bộ Công an.", "C. Thủ tướng Chính phủ.", "D. Chủ tịch nước."], ans: 1, exp: "Bộ trưởng Bộ Công an có thẩm quyền quy định cụ thể đối với nữ công dân tham gia nghĩa vụ Công an nhân dân." },
+      { id: 37, q: "Tệ nạn ma túy là các hành vi", options: ["A. Sử dụng trái phép chất ma tuý, nghiện ma tuý, vi phạm pháp luật về ma tuý.", "B. Mua dâm, bán dâm và các hành vi khác có liên quan đến mua dâm, bán dâm.", "C. Tin vào những điều mơ hồ dẫn đến cuồng tín, hành động trái với chuẩn mực xã hội.", "D. Lợi dụng trò chơi để cá cược, sát phạt được thua bằng tiền hoặc lợi ích vật chất khác."], ans: 0, exp: "Tệ nạn ma túy bao gồm tàng trữ, sử dụng trái phép chất ma túy và vi phạm pháp luật về ma túy." },
+      { id: 38, q: "Tệ nạn mê tín dị đoan là các hành vi", options: ["A. Sử dụng trái phép chất ma tuý, nghiện ma tuý, vi phạm pháp luật về ma tuý.", "B. Mua dâm, bán dâm và các hành vi khác có liên quan đến mua dâm, bán dâm.", "C. Tin vào những điều mơ hồ dẫn đến cuồng tín, hành động trái với chuẩn mực xã hội.", "D. Lợi dụng trò chơi để cá cược, sát phạt được thua bằng tiền hoặc lợi ích vật chất khác."], ans: 2, exp: "Mê tín dị đoan là tin vào những điều hoang đường, cuồng tín trái chuẩn mực văn hóa." },
+      { id: 39, q: "Câu ca dao “Thầy đề cho số tào lao/ Thầy bói nói dựa, chỗ nào cũng ma” phản ánh về loại tệ nạn xã hội nào dưới đây?", options: ["A. Tệ nạn ma túy.", "B. Tệ nạn cờ bạc.", "C. Tệ nạn mại dâm.", "D. Tệ nạn mê tín dị đoan."], ans: 3, exp: "Câu ca dao châm biếm bói toán, đồng bóng thuộc tệ nạn mê tín dị đoan." },
+      { id: 40, q: "Câu tục ngữ nào sau đây phản ánh về tệ nạn cờ bạc?", options: ["A. Đánh đề ra đê mà ở.", "B. Bói ra ma, quét nhà ra rác.", "C. Đi guốc đau tay, đi cày mỏi gối.", "D. Nhịn đói nằm co hơn ăn no vác nặng."], ans: 0, exp: "'Đánh đề' là hình thức cá cược, cờ bạc dẫn đến tán gia bại sản." }
+    ];
+
+    let currentIndex = 0;
+    let userAnswers = new Array(questions.length).fill(null);
+    let checkedStatus = new Array(questions.length).fill(false);
+
+    window.onload = function() {
+      renderPalette();
+      loadQuestion(0);
+    };
+
+    function renderPalette() {
+      const grid = document.getElementById('question-grid');
+      grid.innerHTML = '';
+      questions.forEach((q, idx) => {
+        const btn = document.createElement('button');
+        btn.id = `palette-btn-${idx}`;
+        btn.innerText = idx + 1;
+        btn.onclick = () => jumpToQuestion(idx);
+        btn.className = getPaletteBtnClass(idx);
+        grid.appendChild(btn);
+      });
+    }
+
+    function getPaletteBtnClass(idx) {
+      let base = "w-full h-8 rounded-lg text-xs font-bold transition flex items-center justify-center border ";
+      if (idx === currentIndex) {
+        base += "ring-2 ring-indigo-600 ring-offset-1 ";
+      }
+
+      if (checkedStatus[idx]) {
+        if (userAnswers[idx] === questions[idx].ans) {
+          return base + "bg-emerald-500 text-white border-emerald-600";
+        } else {
+          return base + "bg-rose-500 text-white border-rose-600";
+        }
+      }
+
+      if (userAnswers[idx] !== null) {
+        return base + "bg-indigo-600 text-white border-indigo-700";
+      }
+
+      return base + "bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200";
+    }
+
+    function updatePalette() {
+      questions.forEach((_, idx) => {
+        const btn = document.getElementById(`palette-btn-${idx}`);
+        if (btn) btn.className = getPaletteBtnClass(idx);
+      });
+    }
+
+    function loadQuestion(index) {
+      currentIndex = index;
+      const qData = questions[index];
+
+      document.getElementById('current-q-index-label').innerText = `Câu ${index + 1} / ${questions.length}`;
+      document.getElementById('question-badge').innerText = `Câu ${index + 1}`;
+      document.getElementById('question-text').innerText = qData.q;
+
+      // Update progress
+      const answeredCount = userAnswers.filter(a => a !== null).length;
+      document.getElementById('answered-count-label').innerText = `Đã trả lời: ${answeredCount}/${questions.length}`;
+      document.getElementById('progress-bar').style.width = `${((index + 1) / questions.length) * 100}%`;
+
+      // Render Options
+      const optionsContainer = document.getElementById('options-container');
+      optionsContainer.innerHTML = '';
+
+      qData.options.forEach((optText, optIdx) => {
+        const isSelected = userAnswers[index] === optIdx;
+        const isChecked = checkedStatus[index];
+        const isCorrect = qData.ans === optIdx;
+
+        let cardStyle = "border-slate-200 bg-white hover:border-indigo-300 hover:bg-slate-50";
+        let iconMarkup = `<div class="w-5 h-5 rounded-full border border-slate-300 flex items-center justify-center shrink-0 mr-3"><span class="w-2 h-2 rounded-full bg-transparent"></span></div>`;
+
+        if (isSelected) {
+          cardStyle = "border-indigo-600 bg-indigo-50/50 text-indigo-950 font-medium";
+          iconMarkup = `<div class="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center shrink-0 mr-3 text-xs"><i class="fa-solid fa-check"></i></div>`;
         }
 
-        function renderHomeScreen() {
-            const app = document.getElementById('app');
-            app.innerHTML = `
-                <div class="space-y-6 animate-fadeIn">
-                    <!-- Welcome Hero -->
-                    <div class="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 rounded-3xl p-6 md:p-8 text-white shadow-xl relative overflow-hidden">
-                        <div class="relative z-10 max-w-2xl">
-                            <span class="inline-block px-3 py-1 bg-amber-500/20 text-amber-300 text-xs font-semibold rounded-full border border-amber-500/30 mb-3">
-                                <i class="fa-solid fa-book-open mr-1"></i> Chương trình Lớp 11
-                            </span>
-                            <h2 class="text-2xl md:text-3xl font-extrabold mb-2 leading-tight">Hệ Thống Ôn Tập Trắc Nghiệm GDQP & AN 11</h2>
-                            <p class="text-slate-300 text-sm md:text-base mb-6">Trọn bộ 120 câu hỏi trắc nghiệm bám sát nội dung Bài 1, Bài 2 và Bài 3. Luyện tập theo chuyên đề hoặc thử sức với bài thi thử có tính thời gian.</p>
-                            
-                            <div class="flex flex-wrap gap-3">
-                                <button onclick="startFreePractice()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-5 py-2.5 rounded-xl transition shadow-lg flex items-center gap-2 text-sm">
-                                    <i class="fa-solid fa-infinity"></i> Luyện tập 120 câu (Không thời gian)
-                                </button>
-                                <button onclick="startQuiz('practice')" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-5 py-2.5 rounded-xl transition shadow-lg flex items-center gap-2 text-sm">
-                                    <i class="fa-solid fa-graduation-cap"></i> Luyện tập theo lọc
-                                </button>
-                                <button onclick="startQuiz('exam')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-5 py-2.5 rounded-xl transition shadow-lg flex items-center gap-2 text-sm">
-                                    <i class="fa-solid fa-clock"></i> Chế độ Thi thử bấm giờ
-                                </button>
-                            </div>
-                        </div>
-                        <div class="absolute -right-10 -bottom-10 opacity-10 text-white pointer-events-none">
-                            <i class="fa-solid fa-shield-halved text-[220px]"></i>
-                        </div>
-                    </div>
-
-                    <!-- Config Card -->
-                    <div class="bg-white rounded-2xl p-5 md:p-6 shadow-sm border border-slate-200">
-                        <h3 class="font-bold text-slate-800 text-lg mb-4 flex items-center gap-2">
-                            <i class="fa-solid fa-sliders text-indigo-600"></i> Tùy chọn bài ôn tập riêng lẻ
-                        </h3>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                            <!-- Lesson Select -->
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-500 uppercase mb-2">Chọn Bài Ôn Tập</label>
-                                <div class="grid grid-cols-2 gap-2">
-                                    <button onclick="setLessonFilter('all')" id="btn-lesson-all" class="lesson-btn p-3 rounded-xl border text-left text-sm transition font-medium border-indigo-600 bg-indigo-50 text-indigo-700">
-                                        <div class="font-bold">Tất cả bài</div>
-                                        <div class="text-xs opacity-75">120 Câu (Bài 1 - 3)</div>
-                                    </button>
-                                    <button onclick="setLessonFilter(1)" id="btn-lesson-1" class="lesson-btn p-3 rounded-xl border border-slate-200 text-left text-sm transition hover:bg-slate-50">
-                                        <div class="font-bold">Bài 1</div>
-                                        <div class="text-xs text-slate-500">40 Câu (Chủ quyền LT)</div>
-                                    </button>
-                                    <button onclick="setLessonFilter(2)" id="btn-lesson-2" class="lesson-btn p-3 rounded-xl border border-slate-200 text-left text-sm transition hover:bg-slate-50">
-                                        <div class="font-bold">Bài 2</div>
-                                        <div class="text-xs text-slate-500">40 Câu (Luật NVQS)</div>
-                                    </button>
-                                    <button onclick="setLessonFilter(3)" id="btn-lesson-3" class="lesson-btn p-3 rounded-xl border border-slate-200 text-left text-sm transition hover:bg-slate-50">
-                                        <div class="font-bold">Bài 3</div>
-                                        <div class="text-xs text-slate-500">40 Câu (Phòng chống TP)</div>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Exam length (Only active in Exam mode, but configurable) -->
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-500 uppercase mb-2">Số lượng câu khi thi thử</label>
-                                <div class="grid grid-cols-2 gap-2">
-                                    <button onclick="setExamLength(20)" id="btn-len-20" class="len-btn p-3 rounded-xl border border-slate-200 text-left text-sm transition hover:bg-slate-50">
-                                        <div class="font-bold">20 Câu hỏi</div>
-                                        <div class="text-xs text-slate-500">Thời gian: 20 phút</div>
-                                    </button>
-                                    <button onclick="setExamLength(40)" id="btn-len-40" class="len-btn p-3 rounded-xl border border-indigo-600 bg-indigo-50 text-indigo-700 text-left text-sm transition font-medium">
-                                        <div class="font-bold">40 Câu hỏi</div>
-                                        <div class="text-xs opacity-75">Thời gian: 40 phút</div>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Info Features -->
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4 border-t border-slate-100">
-                            <div class="flex items-center space-x-3 p-3 rounded-xl bg-slate-50">
-                                <i class="fa-solid fa-circle-check text-emerald-500 text-xl"></i>
-                                <span class="text-xs font-medium text-slate-600">Hiển thị đáp án ngay ở Chế độ Luyện tập</span>
-                            </div>
-                            <div class="flex items-center space-x-3 p-3 rounded-xl bg-slate-50">
-                                <i class="fa-solid fa-shuffle text-indigo-500 text-xl"></i>
-                                <span class="text-xs font-medium text-slate-600">Xáo trộn câu hỏi ngẫu nhiên trong bài thi</span>
-                            </div>
-                            <div class="flex items-center space-x-3 p-3 rounded-xl bg-slate-50">
-                                <i class="fa-solid fa-chart-pie text-amber-500 text-xl"></i>
-                                <span class="text-xs font-medium text-slate-600">Thống kê điểm số và xem lại bài chi tiết</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            updateConfigUI();
+        if (isChecked) {
+          if (isCorrect) {
+            cardStyle = "border-emerald-500 bg-emerald-50 text-emerald-950 font-medium";
+            iconMarkup = `<div class="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0 mr-3 text-xs"><i class="fa-solid fa-check"></i></div>`;
+          } else if (isSelected && !isCorrect) {
+            cardStyle = "border-rose-500 bg-rose-50 text-rose-950 font-medium";
+            iconMarkup = `<div class="w-5 h-5 rounded-full bg-rose-500 text-white flex items-center justify-center shrink-0 mr-3 text-xs"><i class="fa-solid fa-xmark"></i></div>`;
+          }
         }
 
-        function setLessonFilter(val) {
-            appState.lessonFilter = val;
-            updateConfigUI();
+        const optDiv = document.createElement('div');
+        optDiv.className = `p-3.5 rounded-xl border cursor-pointer transition flex items-center ${cardStyle}`;
+        optDiv.onclick = () => selectOption(optIdx);
+        optDiv.innerHTML = `${iconMarkup}<span class="text-sm leading-snug">${optText}</span>`;
+
+        optionsContainer.appendChild(optDiv);
+      });
+
+      // Explanation Box
+      const expBox = document.getElementById('explanation-box');
+      if (checkedStatus[index]) {
+        expBox.classList.remove('hidden');
+        document.getElementById('explanation-text').innerText = qData.exp;
+      } else {
+        expBox.classList.add('hidden');
+      }
+
+      // Buttons Control
+      document.getElementById('btn-prev').disabled = (index === 0);
+      document.getElementById('btn-next').disabled = (index === questions.length - 1);
+
+      updatePalette();
+    }
+
+    function selectOption(optIdx) {
+      userAnswers[currentIndex] = optIdx;
+      loadQuestion(currentIndex);
+    }
+
+    function checkCurrentAnswer() {
+      if (userAnswers[currentIndex] === null) {
+        alert("Vui lòng chọn một đáp án trước khi kiểm tra!");
+        return;
+      }
+      checkedStatus[currentIndex] = true;
+      loadQuestion(currentIndex);
+    }
+
+    function nextQuestion() {
+      if (currentIndex < questions.length - 1) {
+        loadQuestion(currentIndex + 1);
+      }
+    }
+
+    function prevQuestion() {
+      if (currentIndex > 0) {
+        loadQuestion(currentIndex - 1);
+      }
+    }
+
+    function jumpToQuestion(index) {
+      loadQuestion(index);
+    }
+
+    function submitQuiz() {
+      const answeredCount = userAnswers.filter(a => a !== null).length;
+      if (answeredCount < questions.length) {
+        if (!confirm(`Bạn mới trả lời ${answeredCount}/${questions.length} câu hỏi. Bạn có chắc chắn muốn nộp bài?`)) {
+          return;
         }
+      }
 
-        function setExamLength(len) {
-            appState.examLength = len;
-            updateConfigUI();
-        }
+      // Mark all as checked to show colors
+      checkedStatus.fill(true);
+      
+      let correctCount = 0;
+      userAnswers.forEach((ans, idx) => {
+        if (ans === questions[idx].ans) correctCount++;
+      });
 
-        function updateConfigUI() {
-            // Update lesson buttons
-            document.querySelectorAll('.lesson-btn').forEach(btn => {
-                btn.className = "lesson-btn p-3 rounded-xl border border-slate-200 text-left text-sm transition hover:bg-slate-50 text-slate-700";
-            });
-            const activeLessonBtn = document.getElementById(`btn-lesson-${appState.lessonFilter}`);
-            if(activeLessonBtn) {
-                activeLessonBtn.className = "lesson-btn p-3 rounded-xl border border-indigo-600 bg-indigo-50 text-indigo-700 font-medium text-left text-sm transition";
-            }
+      const score = ((correctCount / questions.length) * 10).toFixed(1);
 
-            // Update exam length buttons
-            document.querySelectorAll('.len-btn').forEach(btn => {
-                btn.className = "len-btn p-3 rounded-xl border border-slate-200 text-left text-sm transition hover:bg-slate-50 text-slate-700";
-            });
-            const activeLenBtn = document.getElementById(`btn-len-${appState.examLength}`);
-            if(activeLenBtn) {
-                activeLenBtn.className = "len-btn p-3 rounded-xl border border-indigo-600 bg-indigo-50 text-indigo-700 font-medium text-left text-sm transition";
-            }
-        }
+      document.getElementById('modal-score').innerText = `${score}/10`;
+      document.getElementById('modal-correct-count').innerText = `${correctCount}/${questions.length}`;
 
-        function startQuiz(mode) {
-            appState.mode = mode;
-            appState.currentIndex = 0;
-            appState.userAnswers = {};
-            appState.isFinished = false;
+      let feedback = "";
+      if (score >= 8.5) feedback = "🎉 Xuất sắc! Bạn nắm rất vững kiến thức GDQP-AN!";
+      else if (score >= 6.5) feedback = "👍 Khá tốt! Hãy ôn kỹ lại các câu làm sai nhé.";
+      else if (score >= 5.0) feedback = "😊 Đạt yêu cầu. Hãy cố gắng ôn tập thêm!";
+      else feedback = "📚 Bạn cần đọc kỹ lại kiến thức và làm lại bài thi thử nhé.";
 
-            // Filter Questions
-            let list = [...rawQuestions];
-            if (appState.lessonFilter !== 'all') {
-                list = list.filter(q => q.lesson === Number(appState.lessonFilter));
-            }
+      document.getElementById('modal-feedback').innerText = feedback;
+      document.getElementById('result-modal').classList.remove('hidden');
 
-            // Shuffle or slice for exam
-            if (mode === 'exam') {
-                list = list.sort(() => Math.random() - 0.5);
-                list = list.slice(0, Math.min(appState.examLength, list.length));
-                appState.timeLeft = list.length * 60; // 1 min per question
-                startTimer();
-            }
+      loadQuestion(currentIndex);
+    }
 
-            appState.currentQuestions = list;
-            renderQuizScreen();
-        }
+    function resetQuiz() {
+      userAnswers = new Array(questions.length).fill(null);
+      checkedStatus = new Array(questions.length).fill(false);
+      currentIndex = 0;
+      renderPalette();
+      loadQuestion(0);
+    }
 
-        function startTimer() {
-            if (appState.timer) clearInterval(appState.timer);
-            appState.timer = setInterval(() => {
-                appState.timeLeft--;
-                const timerEl = document.getElementById('timer-display');
-                if (timerEl) {
-                    const m = Math.floor(appState.timeLeft / 60);
-                    const s = appState.timeLeft % 60;
-                    timerEl.innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-                }
-                if (appState.timeLeft <= 0) {
-                    clearInterval(appState.timer);
-                    submitQuiz();
-                }
-            }, 1000);
-        }
-
-        function renderQuizScreen() {
-            const app = document.getElementById('app');
-            const q = appState.currentQuestions[appState.currentIndex];
-            const total = appState.currentQuestions.length;
-            const answeredCount = Object.keys(appState.userAnswers).length;
-
-            const lessonBadgeName = q.lesson === 1 ? "Bài 1: Chủ quyền lãnh thổ, biên giới" : q.lesson === 2 ? "Bài 2: Luật Nghĩa vụ quân sự" : "Bài 3: Phòng chống tội phạm & TNXH";
-
-            app.innerHTML = `
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <!-- Left/Main Question Box -->
-                    <div class="lg:col-span-2 space-y-4">
-                        <!-- Top Bar info -->
-                        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
-                            <div class="flex items-center space-x-2">
-                                <span class="bg-indigo-100 text-indigo-700 text-xs font-bold px-2.5 py-1 rounded-lg">
-                                    Câu ${appState.currentIndex + 1}/${total}
-                                </span>
-                                <span class="text-xs text-slate-500 truncate max-w-[200px] sm:max-w-none">
-                                    ${lessonBadgeName}
-                                </span>
-                            </div>
-                            ${appState.mode === 'exam' ? `
-                                <div class="flex items-center space-x-1.5 text-amber-600 bg-amber-50 font-mono font-bold text-sm px-3 py-1 rounded-lg border border-amber-200">
-                                    <i class="fa-regular fa-clock"></i>
-                                    <span id="timer-display">${Math.floor(appState.timeLeft/60).toString().padStart(2,'0')}:${(appState.timeLeft%60).toString().padStart(2,'0')}</span>
-                                </div>
-                            ` : `
-                                <span class="text-xs bg-emerald-50 text-emerald-700 font-medium px-2.5 py-1 rounded-lg border border-emerald-200">Luyện tập</span>
-                            `}
-                        </div>
-
-                        <!-- Question Card -->
-                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-5">
-                            <h3 class="text-base sm:text-lg font-semibold text-slate-800 leading-snug">
-                                ${q.q}
-                            </h3>
-
-                            <div class="space-y-3">
-                                ${q.options.map((opt, idx) => {
-                                    const isSelected = appState.userAnswers[q.id] === idx;
-                                    const isCorrect = idx === q.correct;
-                                    const showResult = appState.mode === 'practice' && appState.userAnswers[q.id] !== undefined;
-
-                                    let btnStyle = "border-slate-200 hover:bg-slate-50 text-slate-700";
-                                    let badgeStyle = "bg-slate-100 text-slate-600";
-
-                                    if (isSelected) {
-                                        btnStyle = "border-indigo-600 bg-indigo-50/50 text-indigo-900 font-medium";
-                                        badgeStyle = "bg-indigo-600 text-white";
-                                    }
-
-                                    if (showResult) {
-                                        if (isCorrect) {
-                                            btnStyle = "border-emerald-500 bg-emerald-50 text-emerald-900 font-semibold";
-                                            badgeStyle = "bg-emerald-600 text-white";
-                                        } else if (isSelected && !isCorrect) {
-                                            btnStyle = "border-rose-500 bg-rose-50 text-rose-900 font-semibold";
-                                            badgeStyle = "bg-rose-600 text-white";
-                                        }
-                                    }
-
-                                    return `
-                                        <button onclick="selectOption(${q.id}, ${idx})" class="w-full text-left p-4 rounded-xl border ${btnStyle} transition flex items-start space-x-3 group text-sm sm:text-base">
-                                            <span class="w-6 h-6 rounded-lg flex items-center justify-center text-xs font-bold shrink-0 mt-0.5 ${badgeStyle}">
-                                                ${String.fromCharCode(65 + idx)}
-                                            </span>
-                                            <span class="flex-1">${opt}</span>
-                                            ${showResult && isCorrect ? `<i class="fa-solid fa-circle-check text-emerald-600 mt-1"></i>` : ''}
-                                            ${showResult && isSelected && !isCorrect ? `<i class="fa-solid fa-circle-xmark text-rose-600 mt-1"></i>` : ''}
-                                        </button>
-                                    `;
-                                }).join('')}
-                            </div>
-
-                            ${appState.mode === 'practice' && appState.userAnswers[q.id] !== undefined ? `
-                                <div class="p-3.5 rounded-xl ${appState.userAnswers[q.id] === q.correct ? 'bg-emerald-50 border border-emerald-200 text-emerald-800' : 'bg-rose-50 border border-rose-200 text-rose-800'} text-xs sm:text-sm">
-                                    <span class="font-bold">${appState.userAnswers[q.id] === q.correct ? 'Chính xác! 🎉' : 'Chưa đúng! ❌'}</span>
-                                    ${appState.userAnswers[q.id] !== q.correct ? `Đáp án đúng là: <strong>${String.fromCharCode(65 + q.correct)}. ${q.options[q.correct]}</strong>` : ''}
-                                </div>
-                            ` : ''}
-                        </div>
-
-                        <!-- Action Buttons -->
-                        <div class="flex justify-between items-center pt-2">
-                            <button onclick="prevQuestion()" ${appState.currentIndex === 0 ? 'disabled' : ''} class="px-4 py-2 bg-white border border-slate-200 rounded-xl text-slate-600 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed font-medium text-sm flex items-center gap-1.5 shadow-sm">
-                                <i class="fa-solid fa-arrow-left"></i> Câu trước
-                            </button>
-
-                            ${appState.currentIndex < total - 1 ? `
-                                <button onclick="nextQuestion()" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-medium text-sm flex items-center gap-1.5 shadow-md shadow-indigo-200">
-                                    Câu tiếp <i class="fa-solid fa-arrow-right"></i>
-                                </button>
-                            ` : `
-                                <button onclick="confirmSubmit()" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-sm flex items-center gap-1.5 shadow-md shadow-emerald-200">
-                                    <i class="fa-solid fa-paper-plane"></i> Nộp Bài
-                                </button>
-                            `}
-                        </div>
-                    </div>
-
-                    <!-- Right Sidebar: Question Palette -->
-                    <div class="space-y-4">
-                        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
-                            <div class="flex justify-between items-center pb-3 border-b border-slate-100">
-                                <h4 class="font-bold text-slate-800 text-sm">Danh sách câu hỏi</h4>
-                                <span class="text-xs text-slate-500">Đã làm: <strong>${answeredCount}/${total}</strong></span>
-                            </div>
-
-                            <!-- Grid of Numbers -->
-                            <div class="grid grid-cols-5 sm:grid-cols-8 lg:grid-cols-5 gap-2 max-h-64 overflow-y-auto pr-1 custom-scrollbar">
-                                ${appState.currentQuestions.map((item, i) => {
-                                    const isCurrent = i === appState.currentIndex;
-                                    const isAnswered = appState.userAnswers[item.id] !== undefined;
-                                    let numStyle = "bg-slate-100 text-slate-600 border-transparent hover:bg-slate-200";
-
-                                    if (isAnswered) {
-                                        if (appState.mode === 'practice') {
-                                            numStyle = appState.userAnswers[item.id] === item.correct ? "bg-emerald-500 text-white font-bold" : "bg-rose-500 text-white font-bold";
-                                        } else {
-                                            numStyle = "bg-indigo-600 text-white font-bold";
-                                        }
-                                    }
-
-                                    if (isCurrent) {
-                                        numStyle += " ring-2 ring-indigo-600 ring-offset-2";
-                                    }
-
-                                    return `
-                                        <button onclick="goToQuestion(${i})" class="w-full h-9 rounded-lg text-xs font-medium flex items-center justify-center transition border ${numStyle}">
-                                            ${i + 1}
-                                        </button>
-                                    `;
-                                }).join('')}
-                            </div>
-
-                            <div class="pt-2">
-                                <button onclick="confirmSubmit()" class="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold rounded-xl transition text-sm flex items-center justify-center gap-2 shadow-sm">
-                                    <i class="fa-solid fa-check-double"></i> Nộp Bài & Xem Điểm
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        function startFreePractice() {
-            appState.mode = 'practice';
-            appState.lessonFilter = 'all';
-            appState.currentIndex = 0;
-            appState.userAnswers = {};
-            appState.isFinished = false;
-            if (appState.timer) clearInterval(appState.timer);
-
-            // Full 120 questions shuffled for repeated practice
-            appState.currentQuestions = [...rawQuestions].sort(() => Math.random() - 0.5);
-            renderQuizScreen();
-        }
-
-        function selectOption(qId, optionIdx) {
-            if (appState.isFinished) return;
-            appState.userAnswers[qId] = optionIdx;
-            renderQuizScreen();
-        }
-
-        function goToQuestion(idx) {
-            appState.currentIndex = idx;
-            renderQuizScreen();
-        }
-
-        function nextQuestion() {
-            if (appState.currentIndex < appState.currentQuestions.length - 1) {
-                appState.currentIndex++;
-                renderQuizScreen();
-            }
-        }
-
-        function prevQuestion() {
-            if (appState.currentIndex > 0) {
-                appState.currentIndex--;
-                renderQuizScreen();
-            }
-        }
-
-        function confirmSubmit() {
-            const total = appState.currentQuestions.length;
-            const answered = Object.keys(appState.userAnswers).length;
-            if (answered < total) {
-                if (!confirm(`Bạn mới trả lời ${answered}/${total} câu hỏi. Bạn có chắc chắn muốn nộp bài sớm?`)) {
-                    return;
-                }
-            }
-            submitQuiz();
-        }
-
-        function submitQuiz() {
-            if (appState.timer) clearInterval(appState.timer);
-            appState.isFinished = true;
-            renderResultScreen();
-        }
-
-        function renderResultScreen() {
-            const app = document.getElementById('app');
-            const total = appState.currentQuestions.length;
-            let correctCount = 0;
-
-            appState.currentQuestions.forEach(q => {
-                if (appState.userAnswers[q.id] === q.correct) {
-                    correctCount++;
-                }
-            });
-
-            const score = ((correctCount / total) * 10).toFixed(1);
-            let evaluation = "Cần cố gắng thêm!";
-            let evalColor = "text-amber-600";
-            if (score >= 8.5) {
-                evaluation = "Xuất sắc! Giỏi lắm! 🌟";
-                evalColor = "text-emerald-600";
-            } else if (score >= 7.0) {
-                evaluation = "Khá tốt! Hãy duy trì phong độ! 👍";
-                evalColor = "text-indigo-600";
-            } else if (score >= 5.0) {
-                evaluation = "Đạt yêu cầu. Hãy đọc lại kiến thức! 📚";
-                evalColor = "text-blue-600";
-            }
-
-            app.innerHTML = `
-                <div class="max-w-3xl mx-auto space-y-6 animate-fadeIn">
-                    <!-- Result Summary Card -->
-                    <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-md border border-slate-200 text-center space-y-4">
-                        <div class="w-20 h-20 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mx-auto text-3xl">
-                            <i class="fa-solid fa-trophy"></i>
-                        </div>
-
-                        <div>
-                            <h2 class="text-2xl font-extrabold text-slate-800">Kết Quả Bài Ôn Tập</h2>
-                            <p class="text-sm ${evalColor} font-bold mt-1">${evaluation}</p>
-                        </div>
-
-                        <div class="flex justify-center items-center gap-6 py-4 border-y border-slate-100">
-                            <div>
-                                <div class="text-3xl font-black text-indigo-600">${score}</div>
-                                <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Điểm Số (Hệ 10)</div>
-                            </div>
-                            <div class="w-px h-10 bg-slate-200"></div>
-                            <div>
-                                <div class="text-3xl font-black text-emerald-600">${correctCount}/${total}</div>
-                                <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Số Câu Đúng</div>
-                            </div>
-                            <div class="w-px h-10 bg-slate-200"></div>
-                            <div>
-                                <div class="text-3xl font-black text-slate-700">${Math.round((correctCount/total)*100)}%</div>
-                                <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Tỷ Lệ Đúng</div>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-wrap gap-3 justify-center pt-2">
-                            <button onclick="goHome()" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-semibold text-sm transition">
-                                <i class="fa-solid fa-house mr-1"></i> Về trang chủ
-                            </button>
-                            <button onclick="startQuiz('${appState.mode}')" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold text-sm transition shadow-md shadow-indigo-200">
-                                <i class="fa-solid fa-rotate-right mr-1"></i> Làm lại bài này
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Detailed Answer Review -->
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-5">
-                        <h3 class="font-bold text-slate-800 text-base pb-3 border-b border-slate-100 flex items-center justify-between">
-                            <span>Chi tiết câu hỏi & Đáp án</span>
-                            <span class="text-xs font-normal text-slate-500">Màu xanh: Đúng | Màu đỏ: Sai</span>
-                        </h3>
-
-                        <div class="space-y-4">
-                            ${appState.currentQuestions.map((q, idx) => {
-                                const uAns = appState.userAnswers[q.id];
-                                const isCorrect = uAns === q.correct;
-
-                                return `
-                                    <div class="p-4 rounded-xl border ${isCorrect ? 'border-emerald-200 bg-emerald-50/30' : 'border-rose-200 bg-rose-50/30'} space-y-2">
-                                        <div class="flex items-start justify-between gap-2">
-                                            <span class="text-xs font-bold ${isCorrect ? 'text-emerald-700 bg-emerald-100' : 'text-rose-700 bg-rose-100'} px-2 py-0.5 rounded-md">
-                                                Câu ${idx + 1}
-                                            </span>
-                                            <span class="text-xs text-slate-400">Bài ${q.lesson}</span>
-                                        </div>
-                                        
-                                        <p class="font-medium text-slate-800 text-sm">${q.q}</p>
-
-                                        <div class="text-xs space-y-1 pt-1">
-                                            <div>
-                                                <span class="text-slate-500">Bạn chọn: </span>
-                                                <span class="font-bold ${isCorrect ? 'text-emerald-700' : 'text-rose-600'}">
-                                                    ${uAns !== undefined ? `${String.fromCharCode(65 + uAns)}. ${q.options[uAns]}` : 'Chưa trả lời'}
-                                                </span>
-                                            </div>
-                                            ${!isCorrect ? `
-                                                <div>
-                                                    <span class="text-slate-500">Đáp án chuẩn: </span>
-                                                    <span class="font-bold text-emerald-700">
-                                                        ${String.fromCharCode(65 + q.correct)}. ${q.options[q.correct]}
-                                                    </span>
-                                                </div>
-                                            ` : ''}
-                                        </div>
-                                    </div>
-                                `;
-                            }).join('')}
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Initialize App
-        window.onload = function() {
-            renderHomeScreen();
-        };
-    </script>
+    function closeModal() {
+      document.getElementById('result-modal').classList.add('hidden');
+    }
+  </script>
 </body>
 </html>
